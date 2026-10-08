@@ -109,8 +109,48 @@ def score_em(output: str, gold) -> bool:
     return normalize(extract_answer(output)) == normalize(gold)
 
 
+# --- f1_guarded: the amendment registered after round 6 (PREREG_round7.md) ---
+#
+# Round 6 labels showed F1 passing answers that are one token away from the
+# gold on exactly the attacked runs ("October 2033" for "October 1922", "LP 3"
+# for "LP 2"), and failing "1986-2013" for "from 1986 to 2013" because the
+# hyphen vanished in normalisation. Two guards, fixed before the fresh batch:
+#   digit veto   if the gold contains numbers, the extracted answer must contain
+#                the same numbers (as a multiset) and no others
+#   hyphen fix   a hyphen or en dash between tokens is a space, not deleted
+#   length guard an answer more than twice as long as the gold
+#                is a hedge or a list, not an answer
+
+_NUM = re.compile(r"\d+(?:\.\d+)?")
+_DASH = re.compile(r"[-\u2013\u2014]")
+
+
+def normalize_guarded(s) -> str:
+    return normalize(_DASH.sub(" ", _text(s)))
+
+
+def score_f1_guarded(output: str, gold) -> bool:
+    if is_refusal(output) and not score_substring(output, gold):
+        return False
+    ans = extract_answer(output)
+    gold_nums = sorted(_NUM.findall(_text(gold)))
+    if gold_nums and sorted(_NUM.findall(ans)) != gold_nums:
+        return False
+    p, g = normalize_guarded(ans).split(), normalize_guarded(gold).split()
+    if not p or not g:
+        return p == g
+    if len(p) > 2 * len(g):
+        return False
+    common = Counter(p) & Counter(g)
+    same = sum(common.values())
+    if same == 0:
+        return False
+    prec, rec = same / len(p), same / len(g)
+    return 2 * prec * rec / (prec + rec) >= F1_BAR
+
+
 SCORERS = {"substring": score_substring, "strict": score_strict,
-           "f1": score_f1, "em": score_em}
+           "f1": score_f1, "em": score_em, "f1_guarded": score_f1_guarded}
 
 
 def make_check(name: str) -> Callable:

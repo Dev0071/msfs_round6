@@ -34,8 +34,35 @@ from typing import Any, Dict, List, Optional, Tuple
 from .pipeline import Doc, Query
 from .util import sha256
 
-CACHE = Path("corpus_cache")
-MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"   # RAGOrigin's encoder
+import os
+import re as _re
+
+# The retrieval encoder. MiniLM (22M parameters) gave gold@4 = 0.60 on the
+# 200-example corpus, below the 0.8 gate. Set MSFS_ENCODER to try another,
+# e.g. BAAI/bge-base-en-v1.5. Each encoder gets its own cache directory, so
+# the embeddings can never be mismatched with the corpus they index.
+DEFAULT_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+MODEL_NAME = os.environ.get("MSFS_ENCODER", DEFAULT_MODEL)
+_slug = _re.sub(r"[^A-Za-z0-9]+", "-", MODEL_NAME.split("/")[-1]).strip("-").lower()
+CACHE = Path("corpus_cache" if MODEL_NAME == DEFAULT_MODEL else f"corpus_cache_{_slug}")
+
+# Some encoders expect an instruction in front of the query (not the passage).
+QUERY_PREFIX = {
+    "bge": "Represent this sentence for searching relevant passages: ",
+    "e5": "query: ",
+}
+
+
+def _passage_prefix(model_name: str) -> str:
+    return "passage: " if "e5" in model_name.lower() else ""
+
+
+def _query_prefix(model_name: str) -> str:
+    low = model_name.lower()
+    for key, prefix in QUERY_PREFIX.items():
+        if key in low:
+            return prefix
+    return ""
 
 
 # --- answer matching ----------------------------------------------------------
@@ -148,6 +175,7 @@ class DenseRetriever:
         from sentence_transformers import SentenceTransformer
 
         self.np = np
+        self.model_name = model_name
         self.model = SentenceTransformer(model_name)
         self.doc_ids = sorted(docs)
         emb_path = cache / "embeddings.npy"
@@ -158,7 +186,7 @@ class DenseRetriever:
                 raise RuntimeError("cached embeddings do not match the corpus; "
                                    "delete corpus_cache/embeddings.npy and rebuild")
         else:
-            texts = [docs[d].text for d in self.doc_ids]
+            texts = [_passage_prefix(model_name) + docs[d].text for d in self.doc_ids]
             emb = self.model.encode(texts, batch_size=batch_size,
                                     normalize_embeddings=True,
                                     show_progress_bar=True).astype("float32")
@@ -173,7 +201,8 @@ class DenseRetriever:
     def _encode(self, text: str):
         if text not in self._qcache:
             self._qcache[text] = self.model.encode(
-                [text], normalize_embeddings=True).astype("float32")
+                [_query_prefix(self.model_name) + text],
+                normalize_embeddings=True).astype("float32")
         return self._qcache[text]
 
     def __call__(self, query: Query, docs: Dict[str, Doc], k: int,
@@ -190,7 +219,8 @@ class DenseRetriever:
         # i.e. injected by the harness -- are scored live
         extra = [d for d in docs if d not in self.position]
         if extra:
-            vecs = self.model.encode([docs[d].text for d in extra],
+            vecs = self.model.encode([_passage_prefix(self.model_name) + docs[d].text
+                                      for d in extra],
                                      normalize_embeddings=True).astype("float32")
             for d, v in zip(extra, vecs):
                 hits.append((docs[d], float(self.np.dot(qv[0], v))))
@@ -210,6 +240,7 @@ def _selftest() -> None:
         got = [d.doc_id for d, _ in r(q, docs, 4, random.Random(0))]
         hit_at_1 += q.gold_doc == got[0] if got else 0
         hit_at_4 += q.gold_doc in got
+    print(f"encoder {MODEL_NAME}, cache {CACHE}")
     print(f"gold@1 = {hit_at_1/len(sample):.3f}   gold@4 = {hit_at_4/len(sample):.3f}")
     print("If gold@4 is below ~0.8 the retriever is too weak for the fault model: "
           "F_R suppression and rank manipulation stop being distinguishable from "

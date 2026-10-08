@@ -55,6 +55,7 @@ from scipy.stats import beta
 from msfs import attacks, pipeline
 from msfs.backends import make_backend
 from msfs.pipeline import Fault, build_corpus, execute, render_context
+from msfs.faults import render
 from msfs.scoring import all_verdicts, make_check
 from msfs.sealing import SealedLog
 
@@ -145,7 +146,7 @@ def main():
     ap.add_argument("--backend", default="mock")
     ap.add_argument("--proxy", default="", help="comma-separated proxy models")
     ap.add_argument("--corpus", default="hotpotqa", choices=["hotpotqa", "synthetic"])
-    ap.add_argument("--scorer", default="strict", choices=["substring", "strict", "f1", "em"])
+    ap.add_argument("--scorer", default="strict", choices=["substring", "strict", "f1", "em", "f1_guarded"])
     ap.add_argument("--answer-format", default="short", choices=["free", "short"])
     ap.add_argument("--disputes", type=int, default=60, help="stop after this many")
     ap.add_argument("--max-runs", type=int, default=600, help="attack runs at most")
@@ -224,7 +225,7 @@ def main():
                        gen_rng=random.Random(seed + 7), **kw)
         harmed = (not twin["_outcome_bad"]) and tau["_outcome_bad"]
         poison_h = set(fault.params.get("poison_hashes", []))
-        row = {"i": i, "variant": var, "query_id": q.query_id, "gold": str(q.answer_value),
+        row = {"i": i, "variant": var, "query_id": q.query_id, "gold": render(q.answer_value),
                "harmed": harmed, "output": tau["y"], "twin_output": twin["y"],
                "verdicts": all_verdicts(tau["y"], q.answer_value),
                "twin_verdicts": all_verdicts(twin["y"], q.answer_value),
@@ -258,7 +259,8 @@ def main():
                           "all_poison" if poison else "no_poison"),
                  "reproduced": v[frozenset(range(n))] == 1,
                  "v": {key(S): b for S, b in v.items()},
-                 "outputs": {key(S): o[:300] for S, o in outs.items()},
+                 "outputs": {key(S): o for S, o in outs.items()},
+                 "passages": passages,
                  "shapley": phi, "loo": loo,
                  "shapley_verdict": sv, "shapley_top": stops,
                  "loo_verdict": lv, "loo_top": ltops,
@@ -350,19 +352,48 @@ def report(out, a):
                   f"{cp_lower(h, n):.2f} vs baseline {base:.2f} -> "
                   f"{'PASS' if ok else 'FAIL'}.**"]
 
+    # Round 7 rules (PREREG_round7.md): attribution is only defined when some
+    # coalition of the record yields a correct outcome.
+    att = [d for d in mixed if any(b == 0 for b in d["v"].values())]
+    non = [d for d in mixed if d not in att]
+    if mixed:
+        L += ["", "## Attributable vs non-attributable disputes (round 7 rules R1', R1'')\n",
+              "attributable = at least one coalition of the recorded passages gives a "
+              "correct answer. R1': on attributable disputes, Shapley's hit-rate lower "
+              "bound beats the random baseline. R1'': on non-attributable disputes, "
+              "Shapley never blames a genuine passage (abstains).", "",
+              "| set | n | hit | wrong | abstain | hit rate (lower bound) | baseline | rule |",
+              "|---|---|---|---|---|---|---|---|"]
+        for name, g, rule in (("attributable", att, "R1'"), ("non-attributable", non, "R1''")):
+            n = len(g)
+            if not n:
+                L.append(f"| {name} | 0 | | | | | | {rule}: no cases |")
+                continue
+            h = sum(d["shapley_verdict"] == "hit" for d in g)
+            w = sum(d["shapley_verdict"] == "wrong" for d in g)
+            base = sum(len(d["poison"]) / d["n"] for d in g) / n
+            if rule == "R1'":
+                ok = cp_lower(h, n) > base
+            else:
+                ok = w == 0
+            L.append(f"| {name} | {n} | {h} | {w} | {n-h-w} | {h/n:.2f} ({cp_lower(h, n):.2f}) "
+                     f"| {base:.2f} | {rule}: {'PASS' if ok else 'FAIL'} |")
+
     pnames = sorted({p for d in disp for p in d["proxies"]})
     if pnames and mixed:
         L += ["", "## Proxy (Assumption A1)\n",
               "coalition agreement = share of the 2^k interventions on which the proxy "
               "reaches the same outcome as the production model (A1 tested directly). "
               "argmax agreement = the proxy blames the same inputs. v8 registered bar: "
-              f"argmax agreement >= {ARGMAX_BAR}.", "",
-              "| proxy | mixed disputes | mean coalition agreement | all coalitions agree | "
+              f"argmax agreement >= {ARGMAX_BAR}. Scored on attributable mixed disputes "
+              "(round 7 rule); all mixed disputes in brackets.", "",
+              "| proxy | attributable disputes | mean coalition agreement | all coalitions agree | "
               "argmax agreement (lower bound) | proxy hit | verdict |",
               "|---|---|---|---|---|---|---|"]
         for p in pnames:
-            g = [d for d in mixed if p in d["proxies"]]
+            g = [d for d in att if p in d["proxies"]] or [d for d in mixed if p in d["proxies"]]
             n = len(g)
+            agree_all = sum(d["proxies"][p]["argmax_agree"] for d in mixed if p in d["proxies"])
             agree = sum(d["proxies"][p]["argmax_agree"] for d in g)
             allc = sum(d["proxies"][p]["a1_all_coalitions"] for d in g)
             mean = sum(d["proxies"][p]["outcome_agree"] for d in g) / n
@@ -371,7 +402,7 @@ def report(out, a):
             res = "PASS" if ok else ("UNDERPOWERED" if n < MIN_N_PROXY and agree == n
                                      else "FAIL")
             L.append(f"| {p} | {n} | {mean:.2f} | {allc}/{n} | {agree}/{n} "
-                     f"({cp_lower(agree, n):.2f}) | {hit}/{n} | "
+                     f"({cp_lower(agree, n):.2f}) [{agree_all}/{len(mixed)}] | {hit}/{n} | "
                      f"{res} |")
     return "\n".join(L)
 

@@ -151,7 +151,7 @@ def main() -> int:
     ap.add_argument("--answerable-only", action="store_true",
                     help="use only questions whose answer passage the clean "
                          "retriever places in the top k")
-    ap.add_argument("--scorer", default=None, choices=["substring", "strict", "f1", "em"],
+    ap.add_argument("--scorer", default=None, choices=["substring", "strict", "f1", "em", "f1_guarded"],
                     help="outcome scorer (msfs/scoring.py). Default: the pilot "
                          "behaviour (substring). Choose on exp_judge.py labels.")
     ap.add_argument("--answer-format", default="free", choices=["free", "short"])

@@ -1,0 +1,465 @@
+{
+  "config": {
+    "trials": 500,
+    "log_len": 70,
+    "seed": 20261007,
+    "out": "/home/claude/results/integrity"
+  },
+  "anchor_every": 16,
+  "results": {
+    "edit_field": {
+      "group": "in_model",
+      "description": "change one stored element",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 500,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 76,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 424,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "edit_and_rehash": {
+      "group": "in_model",
+      "description": "change an element, recompute the hash chain, no key",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 500,
+        "FRESH": 452,
+        "BIND": 87,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 41,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "edit_rehash_own_key": {
+      "group": "in_model",
+      "description": "change, recompute, re-tag with the attacker's key",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 500,
+        "FRESH": 452,
+        "BIND": 94,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 44,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "delete_middle": {
+      "group": "in_model",
+      "description": "delete an entry",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 500,
+        "AUTH": 500,
+        "FRESH": 459,
+        "BIND": 0,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "delete_and_relink": {
+      "group": "in_model",
+      "description": "delete an entry and relink the chain",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 500,
+        "FRESH": 473,
+        "BIND": 0,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 27,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "reorder": {
+      "group": "in_model",
+      "description": "swap two entries",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 500,
+        "AUTH": 500,
+        "FRESH": 66,
+        "BIND": 0,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "insert_forged": {
+      "group": "in_model",
+      "description": "insert a fabricated entry",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 500,
+        "AUTH": 500,
+        "FRESH": 469,
+        "BIND": 82,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "replay": {
+      "group": "in_model",
+      "description": "duplicate an entry",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 500,
+        "AUTH": 500,
+        "FRESH": 445,
+        "BIND": 0,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "splice_foreign": {
+      "group": "in_model",
+      "description": "substitute an entry from another deployment's log",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 500,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 500,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "truncate_anchored": {
+      "group": "in_model",
+      "description": "truncate into anchored entries",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 500,
+        "BIND": 0,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 500,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "drop_element": {
+      "group": "in_model",
+      "description": "remove one element from a record",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 500,
+        "CHAIN": 0,
+        "AUTH": 500,
+        "FRESH": 457,
+        "BIND": 71,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "key_compromise_past": {
+      "group": "in_model",
+      "description": "steal the key at t, edit an entry written before t",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 500,
+        "FRESH": 500,
+        "BIND": 79,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "false_flag": {
+      "group": "in_model",
+      "description": "present an output the pipeline never released",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 500
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 500
+      }
+    },
+    "selective_capture": {
+      "group": "in_model",
+      "description": "logger omits a passage at capture (honest key)",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 500,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 500,
+        "CLASS": 0
+      }
+    },
+    "omit_element_capture": {
+      "group": "in_model",
+      "description": "logger omits a whole element at capture (honest key)",
+      "n": 500,
+      "detected": 500,
+      "rate": 1.0,
+      "fired": {
+        "WF": 500,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 82,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 418,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "truncate_unanchored": {
+      "group": "out_of_model",
+      "description": "drop entries written since the last anchor",
+      "n": 500,
+      "detected": 0,
+      "rate": 0.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "compromise_rewrites_unanchored": {
+      "group": "out_of_model",
+      "description": "key stolen at the last anchor; unanchored entries rewritten coherently",
+      "n": 500,
+      "detected": 0,
+      "rate": 0.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    },
+    "capture_lie_coherent": {
+      "group": "out_of_model",
+      "description": "logger records a coherent false record at capture",
+      "n": 500,
+      "detected": 0,
+      "rate": 0.0,
+      "fired": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      },
+      "only_clause": {
+        "WF": 0,
+        "CHAIN": 0,
+        "AUTH": 0,
+        "FRESH": 0,
+        "BIND": 0,
+        "CLASS": 0
+      }
+    }
+  },
+  "summary": {
+    "n": 7500,
+    "undetected": 0,
+    "eps_int_upper": 0.0004917296552072394,
+    "bind_on_genuine_faults": {
+      "NONE/clean": {
+        "n": 60,
+        "bind_fired": 0
+      },
+      "F_R/tail_reorder": {
+        "n": 60,
+        "bind_fired": 0
+      },
+      "F_R/suppression": {
+        "n": 60,
+        "bind_fired": 0
+      },
+      "F_X/unregistered_prompt": {
+        "n": 60,
+        "bind_fired": 60
+      },
+      "F_X/context_truncation": {
+        "n": 60,
+        "bind_fired": 60
+      },
+      "F_T/rug_pull": {
+        "n": 60,
+        "bind_fired": 60
+      },
+      "F_T/server_name_squatting": {
+        "n": 60,
+        "bind_fired": 0
+      },
+      "F_P/policy_rollback": {
+        "n": 60,
+        "bind_fired": 0
+      }
+    }
+  },
+  "seconds": 56.5
+}

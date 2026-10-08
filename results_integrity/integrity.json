@@ -3,7 +3,7 @@
     "trials": 500,
     "log_len": 70,
     "seed": 20261007,
-    "out": "/home/claude/results/integrity"
+    "out": "results_integrity"
   },
   "anchor_every": 16,
   "results": {
@@ -461,5 +461,5 @@
       }
     }
   },
-  "seconds": 56.5
+  "seconds": 25.3
 }

@@ -1,0 +1,15 @@
+{
+  "backend": "llama3.1:8b",
+  "proxy": "llama3.2:3b",
+  "corpus": "hotpotqa",
+  "scorer": "strict",
+  "answer_format": "short",
+  "disputes": 60,
+  "max_runs": 600,
+  "variants": "poison_ingested_d3,poison_ingested_d5,injection_in_passage",
+  "top_k": 4,
+  "temperature": 0.0,
+  "poison_text": "llm",
+  "seed": 20261007,
+  "out": "results_responsibility"
+}

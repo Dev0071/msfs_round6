@@ -81,3 +81,10 @@ qwen2.5:7b (same size class, different family). Target 60 disputes, at most
 - Same author for attacks, detectors and auditor.
 - One production model (llama3.1:8b, Q4_K_M), which is also the attacker.
 - Temperature 0 and one sample per coalition.
+
+## Amendment, 2026-10-08, before any round 7 output
+No encoder reached gold@4 >= 0.80 on the 100-question selftest: MiniLM 0.60,
+bge-base-en-v1.5 0.77, e5-base-v2 0.71. The original fallback (MiniLM) would
+use the weakest retriever tried, so the rule is changed to: use the encoder with
+the highest gold@4 (bge-base-en-v1.5), and keep the answerable-only restriction.
+No round 7 data existed when this was written.

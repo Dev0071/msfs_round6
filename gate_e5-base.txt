@@ -1,0 +1,4 @@
+corpus: 1991 passages, 189 usable questions
+encoder intfloat/e5-base-v2, cache corpus_cache_e5-base-v2
+gold@1 = 0.290   gold@4 = 0.710
+If gold@4 is below ~0.8 the retriever is too weak for the fault model: F_R suppression and rank manipulation stop being distinguishable from ordinary retrieval failure, and the completeness numbers are not measuring what they claim to measure.

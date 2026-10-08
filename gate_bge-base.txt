@@ -1,0 +1,2 @@
+encoder BAAI/bge-base-en-v1.5
+gold@1 = 0.280   gold@4 = 0.770

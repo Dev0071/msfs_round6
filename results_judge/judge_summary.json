@@ -1,0 +1,10 @@
+{
+  "best": {
+    "format": "short",
+    "scorer": "f1",
+    "error": 0.04666666666666667,
+    "eps_delta_upper": 0.0937858649877965
+  },
+  "n_labelled": 300,
+  "kappa_annotators": null
+}

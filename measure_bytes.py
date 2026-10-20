@@ -93,6 +93,7 @@ def main() -> int:
     sizes = {c.name: {"json": [], "bin": []} for c in ORDER}
     lengths = {"question_chars": [], "passage_chars": [], "output_chars": [],
                "prompt_chars": []}
+    rows = []
 
     for fc, variant in arms:
         for i in range(args.n):
@@ -107,11 +108,16 @@ def main() -> int:
             lengths["passage_chars"].append(sum(len(t) for t in tau["z_text"]))
             lengths["output_chars"].append(len(tau["y"]))
             lengths["prompt_chars"].append(len(tau["c"]))
+            row = {"arm": fc, "variant": getattr(fault, "variant", "clean"),
+                   "tool_run": tau["t_calls"] is not None,
+                   "passage_chars": lengths["passage_chars"][-1],
+                   "tool_chars": len(json.dumps(tau["t_calls"])) if tau["t_calls"] else 0}
             for c in ORDER:
-                s = project_with_derivation(tau, c)
                 stored = {e: tau.get(e) for e in sorted(c.elements)}  # as recorded
                 sizes[c.name]["json"].append(json_size(stored))
                 sizes[c.name]["bin"].append(bin_size(stored))
+                row[c.name] = sizes[c.name]["bin"][-1]
+            rows.append(row)
         print(f"{fc}: {args.n} runs", file=sys.stderr)
 
     out = Path(args.out); out.mkdir(parents=True, exist_ok=True)
@@ -135,6 +141,30 @@ def main() -> int:
     L += ["", "| input | median chars | p95 | max |", "|---|---:|---:|---:|"]
     for k, s in report["inputs"].items():
         L.append(f"| {k} | {s['median']:,} | {s['p95']:,} | {s['max']:,} |")
+    # Split by whether the run called the tool: the candidate stores the tool
+    # transcript verbatim, so that is the one place content length enters it.
+    import csv
+    with open(out / "runs.csv", "w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=list(rows[0]))
+        w.writeheader(); w.writerows(rows)
+    L += ["", "| record | runs | n | median (bin) | p95 (bin) | max (bin) |",
+          "|---|---|---:|---:|---:|---:|"]
+    for name in ("sigma_hash_plus", "openinference", "sigma_max"):
+        for tool in (False, True):
+            xs = [r[name] for r in rows if r["tool_run"] == tool]
+            if xs:
+                m = summary(xs)
+                L.append(f"| {name} | {'tool' if tool else 'no tool'} | {m['n']} | "
+                         f"{m['median']:,} | {m['p95']:,} | {m['max']:,} |")
+    def corr(a, b):
+        ma, mb = statistics.mean(a), statistics.mean(b)
+        num = sum((x - ma) * (y - mb) for x, y in zip(a, b))
+        den = (sum((x - ma) ** 2 for x in a) * sum((y - mb) ** 2 for y in b)) ** 0.5
+        return num / den if den else float("nan")
+    pc = [r["passage_chars"] for r in rows]
+    L += ["", "Correlation of record size with retrieved passage length (all runs): " +
+          ", ".join(f"{n} {corr(pc, [r[n] for r in rows]):.2f}"
+                    for n in ("sigma_hash_plus", "openinference", "sigma_max"))]
     (out / "bytes.md").write_text("\n".join(L) + "\n")
     print("\n".join(L))
     return 0

@@ -1,0 +1,240 @@
+{
+  "config": {
+    "corpus": "hotpotqa",
+    "backend": "llama3.1:8b",
+    "n": 60,
+    "top_k": 4,
+    "answer_format": "short",
+    "answerable_only": true,
+    "seed": 20261019,
+    "out": "results_bytes_split"
+  },
+  "estimate_bytes": {
+    "sigma0": 532,
+    "otel_default": 136,
+    "otel_content": 3940,
+    "openinference": 8740,
+    "openinference_guard": 8836,
+    "sigma_star": 3688,
+    "sigma_star_plus": 3720,
+    "sigma_hash": 1085,
+    "sigma_hash_plus": 1117,
+    "sigma_max": 30433
+  },
+  "measured": {
+    "sigma0": {
+      "json": {
+        "n": 360,
+        "min": 93,
+        "median": 103,
+        "mean": 105,
+        "p95": 124,
+        "max": 237
+      },
+      "bin": {
+        "n": 360,
+        "min": 59,
+        "median": 69,
+        "mean": 71,
+        "p95": 90,
+        "max": 203
+      }
+    },
+    "otel_default": {
+      "json": {
+        "n": 360,
+        "min": 123,
+        "median": 200,
+        "mean": 164,
+        "p95": 204,
+        "max": 204
+      },
+      "bin": {
+        "n": 360,
+        "min": 123,
+        "median": 166,
+        "mean": 147,
+        "p95": 170,
+        "max": 170
+      }
+    },
+    "otel_content": {
+      "json": {
+        "n": 360,
+        "min": 1144,
+        "median": 3444,
+        "mean": 3551,
+        "p95": 5357,
+        "max": 9025
+      },
+      "bin": {
+        "n": 360,
+        "min": 1144,
+        "median": 3434,
+        "mean": 3534,
+        "p95": 5357,
+        "max": 8991
+      }
+    },
+    "openinference": {
+      "json": {
+        "n": 360,
+        "min": 2017,
+        "median": 5281,
+        "mean": 5569,
+        "p95": 8805,
+        "max": 14580
+      },
+      "bin": {
+        "n": 360,
+        "min": 2017,
+        "median": 5261,
+        "mean": 5552,
+        "p95": 8805,
+        "max": 14546
+      }
+    },
+    "openinference_guard": {
+      "json": {
+        "n": 360,
+        "min": 2176,
+        "median": 5440,
+        "mean": 5728,
+        "p95": 8964,
+        "max": 14739
+      },
+      "bin": {
+        "n": 360,
+        "min": 2142,
+        "median": 5386,
+        "mean": 5677,
+        "p95": 8930,
+        "max": 14671
+      }
+    },
+    "sigma_star": {
+      "json": {
+        "n": 360,
+        "min": 1425,
+        "median": 3587,
+        "mean": 3738,
+        "p95": 5578,
+        "max": 9192
+      },
+      "bin": {
+        "n": 360,
+        "min": 1221,
+        "median": 3383,
+        "mean": 3534,
+        "p95": 5374,
+        "max": 8988
+      }
+    },
+    "sigma_star_plus": {
+      "json": {
+        "n": 360,
+        "min": 1441,
+        "median": 3625,
+        "mean": 3785,
+        "p95": 5594,
+        "max": 9270
+      },
+      "bin": {
+        "n": 360,
+        "min": 1237,
+        "median": 3413,
+        "mean": 3564,
+        "p95": 5390,
+        "max": 9032
+      }
+    },
+    "sigma_hash": {
+      "json": {
+        "n": 360,
+        "min": 767,
+        "median": 1106,
+        "mean": 1115,
+        "p95": 1785,
+        "max": 2829
+      },
+      "bin": {
+        "n": 360,
+        "min": 495,
+        "median": 800,
+        "mean": 826,
+        "p95": 1479,
+        "max": 2523
+      }
+    },
+    "sigma_hash_plus": {
+      "json": {
+        "n": 360,
+        "min": 786,
+        "median": 1187,
+        "mean": 1166,
+        "p95": 1866,
+        "max": 2910
+      },
+      "bin": {
+        "n": 360,
+        "min": 514,
+        "median": 847,
+        "mean": 859,
+        "p95": 1526,
+        "max": 2570
+      }
+    },
+    "sigma_max": {
+      "json": {
+        "n": 360,
+        "min": 2770,
+        "median": 6090,
+        "mean": 6354,
+        "p95": 9558,
+        "max": 15395
+      },
+      "bin": {
+        "n": 360,
+        "min": 2498,
+        "median": 5756,
+        "mean": 6048,
+        "p95": 9286,
+        "max": 15055
+      }
+    }
+  },
+  "inputs": {
+    "question_chars": {
+      "n": 360,
+      "min": 34,
+      "median": 94,
+      "mean": 97,
+      "p95": 169,
+      "max": 241
+    },
+    "passage_chars": {
+      "n": 360,
+      "min": 529,
+      "median": 1867,
+      "mean": 1962,
+      "p95": 3792,
+      "max": 5392
+    },
+    "output_chars": {
+      "n": 360,
+      "min": 9,
+      "median": 19,
+      "mean": 21,
+      "p95": 40,
+      "max": 153
+    },
+    "prompt_chars": {
+      "n": 360,
+      "min": 802,
+      "median": 2665,
+      "mean": 2758,
+      "p95": 4457,
+      "max": 7191
+    }
+  }
+}

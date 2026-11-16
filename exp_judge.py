@@ -169,13 +169,28 @@ def score(a):
         k_ann = kappa([(lab[k], lab2[k]) for k in both])
         disagree = [k for k in both if lab[k] != lab2[k]]
         gold = {k: lab[k] for k in both if k not in disagree}
+        # Round 8: disagreements settled by the two annotators together. With an
+        # adjudication file every disagreement must be resolved; they are then
+        # included, so the hard items no longer drop out of epsilon_delta.
+        adj = read_labels(a.adjudicated) if getattr(a, "adjudicated", None) else {}
+        if adj:
+            missing = [k for k in disagree if adj.get(k) is None]
+            if missing:
+                raise SystemExit("adjudication file leaves these unresolved: "
+                                 + ", ".join(missing))
+            gold.update({k: adj[k] for k in disagree})
+            resolved = list(disagree)
+            disagree = []
     else:
         k_ann, disagree, gold = None, [], {k: v for k, v in lab.items() if v is not None}
     unclear = sum(1 for v in lab.values() if v is None)
     L = ["# Judge error epsilon_delta: each scorer against human labels\n",
          f"Labelled items: {len(lab)} ({unclear} marked unclear, excluded). "
-         + (f"Second annotator: Cohen's kappa {k_ann:.3f}; {len(disagree)} "
-            "disagreements excluded pending adjudication." if lab2 else
+         + (f"Second annotator: Cohen's kappa {k_ann:.3f}; "
+            + (f"{len(resolved)} disagreements adjudicated and included."
+               if lab2 and getattr(a, "adjudicated", None) else
+               f"{len(disagree)} disagreements excluded pending adjudication.")
+            if lab2 else
             "Single annotator: no inter-annotator ceiling yet."), "",
          "error = P(scorer != human). FP = scorer says correct, human says not. "
          "FN = the reverse. Upper = one-sided 97.5% Clopper-Pearson. "
@@ -250,8 +265,40 @@ def main():
     s.add_argument("--out", default="results_judge")
     s.add_argument("--labels", required=True)
     s.add_argument("--labels2", default=None)
+    s.add_argument("--adjudicated", default=None,
+                   help="round 8: CSV (item_id,label) settling every disagreement")
+    d = sub.add_parser("disagreements",
+                       help="round 8: write the sheet the two annotators settle together")
+    d.add_argument("--out", default="results_judge")
+    d.add_argument("--labels", required=True)
+    d.add_argument("--labels2", required=True)
     a = ap.parse_args()
-    generate(a) if a.cmd == "generate" else score(a)
+    if a.cmd == "generate":
+        generate(a)
+    elif a.cmd == "disagreements":
+        write_disagreements(a)
+    else:
+        score(a)
+
+
+def write_disagreements(a):
+    out = Path(a.out)
+    items = {json.loads(l)["item_id"]: json.loads(l)
+             for l in (out / "items_key.jsonl").read_text().splitlines() if l}
+    lab, lab2 = read_labels(a.labels), read_labels(a.labels2)
+    rows = [k for k in lab if k in lab2 and lab[k] is not None
+            and lab2[k] is not None and lab[k] != lab2[k]]
+    path = out / "adjudication_sheet.csv"
+    with open(path, "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["item_id", "question", "gold_answer", "output",
+                    "annotator1", "annotator2", "label", "notes"])
+        for k in sorted(rows):
+            it = items[k]
+            w.writerow([k, it["question"], it["gold"], it["output"],
+                        lab[k], lab2[k], "", ""])
+    print(f"wrote {len(rows)} disagreements to {path}. Settle each one together, "
+          "fill `label` (1 correct, 0 wrong), then score with --adjudicated.")
 
 
 if __name__ == "__main__":

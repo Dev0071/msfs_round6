@@ -39,6 +39,9 @@ OMEGA: Dict[str, int] = {
     "y_hash":     32,      # commitment to the released output, com(o)
     "y_class":    1,       # decision class of the released output, delta(o)
     "t_desc_hash": 32,     # hash of the tool description the model was shown
+    # round 8: the tool transcript with the returned value as a content hash;
+    # the value itself is in the deployer-side content store
+    "t_calls_h":  120,
 }
 
 ALL = frozenset(OMEGA)
@@ -131,6 +134,16 @@ SIGMA_HASH_PLUS = SigmaConfig(
     name="sigma_hash_plus",
     label="sigma_hash + tool description hash",
     elements=frozenset(SIGMA_HASH.elements | {"t_desc_hash"}),
+)
+
+# Round 8 candidate. sigma_hash_plus with the tool transcript hashed (decision of
+# 13 Nov: hash in the record, text in a deployer-side content-addressed store)
+# and the sampling parameters kept, because Part B replays the production model
+# at the recorded configuration (Assumption A-R). m stays for the same reason.
+SIGMA_R8 = SigmaConfig(
+    name="sigma_r8",
+    label="sigma_hash_plus, tool transcript hashed into the store, plus theta",
+    elements=frozenset((SIGMA_HASH_PLUS.elements - {"t_calls"}) | {"t_calls_h", "theta"}),
 )
 
 STANDARD_CONFIGS = [SIGMA_0, SIGMA_1, SIGMA_STAR, SIGMA_STAR_PLUS, SIGMA_MAX]

@@ -69,6 +69,17 @@ def build_archive(docs: Dict[str, Doc], queries, auditor: str = "archive+retriev
             return [d.content_hash for d, _ in hits[:stable]]
 
         arc.reretrieve = reretrieve
+
+        def reretrieve_excluding(x_hash: str, exclude):
+            # round 8, Part B: the snapshot without some passages, full top k
+            q = by_hash.get(x_hash)
+            if q is None:
+                return None
+            ex = set(exclude)
+            kb = {i: d for i, d in arc.snapshot.items() if d.content_hash not in ex}
+            return [d.content_hash for d, _ in fn(q, kb, top_k, random.Random(0))]
+
+        arc.reretrieve_excluding = reretrieve_excluding
     return arc
 
 

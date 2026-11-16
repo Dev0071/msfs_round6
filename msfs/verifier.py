@@ -17,11 +17,13 @@ miss on faulted executions and as a correct rejection on clean ones.
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from dataclasses import dataclass, field
+from typing import Any, Callable, Dict, FrozenSet, List, Optional, Tuple
 
+from . import keys
 from .pipeline import (BLOCKED, POLICY_VERSION_HASH, SYSTEM_PROMPT,
-                       SYSTEM_PROMPT_HASH, TOOL_DESCRIPTION, tool_signature)
+                       SYSTEM_PROMPT_HASH, TOOL_DESCRIPTION, tool_signature,
+                       witness_payload)
 from .util import sha256
 
 NUM = re.compile(r"is (\d+(?:\.\d+)?)\.")
@@ -48,6 +50,22 @@ class Archive:
     reretrieve: Optional[Callable[[str], Optional[List[str]]]] = None
     registered_prompt_hashes: Tuple[str, ...] = (SYSTEM_PROMPT_HASH,)
     registered_policy_hash: str = POLICY_VERSION_HASH
+    # Round 8: off. The cross-source check (a tool figure that disagrees with an
+    # archived record) fires on poisoned passages that assert a different
+    # figure, so planting records frames an honest tool. Not used on HotpotQA,
+    # whose tool returns text.
+    cross_source_check: bool = True
+    # Round 8, Part B: re-retrieval over the archived snapshot with some passages
+    # left out, returning the full top k: "what would the retriever have
+    # returned had these passages not been in the library".
+    reretrieve_excluding: Optional[Callable[[str, Any], Optional[List[str]]]] = None
+    # Round 8. The deployer-side content-addressed store: tool responses and the
+    # tool descriptions the model was shown, written at capture time and keyed
+    # by content hash. It holds what the pipeline RECEIVED, which for an
+    # impostor tool is the impostor's response. Empty for earlier rounds.
+    blob_by_hash: Dict[str, Any] = field(default_factory=dict)
+    # Round 8 schema: every policy witness carries the wrapper's signature.
+    require_witness_tag: bool = False
 
 
 @dataclass
@@ -56,6 +74,18 @@ class Verdict:
     confidence: float
     evidence: str
     abstained: bool
+
+
+@dataclass
+class VerdictSet:
+    """Round 8: every alarm, not only the strongest (two faults, two alarms)."""
+    classes: FrozenSet[str]                 # component classes that raised an alarm
+    signals: List[Tuple[str, float, str]]   # every signal, strongest first
+    unavailable: bool                       # some evidence was missing from the store
+
+    @property
+    def evidence(self) -> List[str]:
+        return [f"{c}: {e}" for c, _, e in self.signals]
 
 
 Signal = Tuple[str, float, str]
@@ -105,6 +135,48 @@ def _detect_retrieval(sigma, arc: Archive) -> List[Signal]:
     return out
 
 
+def _tool_call(sigma, arc: Archive):
+    """
+    The tool call the record implies, and how it is known.
+
+      ("none", None)          the record keeps no tool transcript at all
+      ("no_call", None)       the record says no tool was called
+      ("ok", tc)              the transcript, with the returned value
+      ("unavailable", None)   the record holds a value hash the store does not
+    """
+    if sigma.has("t_calls"):
+        tc = sigma.get("t_calls")
+        return ("ok", tc) if tc else ("no_call", None)
+    if "t_calls" in sigma.stored:
+        return "no_call", None
+    if "t_calls_h" in sigma.stored:
+        th = sigma.stored["t_calls_h"]
+        if not th:
+            return "no_call", None
+        h = th["returned"]["value_hash"]
+        if h not in arc.blob_by_hash:
+            return "unavailable", None
+        tc = {k: v for k, v in th.items() if k != "returned"}
+        tc["returned"] = {"value": arc.blob_by_hash[h], "unit": th["returned"].get("unit")}
+        return "ok", tc
+    return "none", None
+
+
+def _shown_description(sigma, arc: Archive) -> str:
+    """
+    The tool description the model was shown. Round 8: fetched from the store by
+    t_desc_hash, so that the context check compares against the context built
+    from the inputs the pipeline actually used. A changed description is then the
+    tool's fault alone (F_T) and no longer also raises F_X. Without the store
+    (earlier rounds) this is the registered description, as before.
+    """
+    if sigma.has("t_desc_hash"):
+        h = sigma.get("t_desc_hash")
+        if h in arc.blob_by_hash:
+            return arc.blob_by_hash[h]
+    return TOOL_DESCRIPTION
+
+
 def _canonical_prompt(sigma, arc: Archive) -> Optional[str]:
     """Recompute the prompt that the stored evidence implies. None if not derivable."""
     if not (sigma.has("z_hashes") and sigma.has("x_hash")):
@@ -118,12 +190,12 @@ def _canonical_prompt(sigma, arc: Archive) -> Optional[str]:
     parts = [SYSTEM_PROMPT, "", f"[SYSTEM_PROMPT_HASH] {SYSTEM_PROMPT_HASH}", ""]
     for rank, h in enumerate(hashes, start=1):
         parts.append(f"[DOC rank={rank}] {arc.doc_text_by_hash[h]}")
-    if sigma.has("t_calls"):
-        tc = sigma.get("t_calls")
-        if tc:
-            # the registered tool description, from the specification
-            parts.append(f"[TOOL {tc['tool']}@{tc['version']}] {TOOL_DESCRIPTION}")
-            parts.append(f"[TOOL_RESULT] {tc['returned']['value']}")
+    status, tc = _tool_call(sigma, arc)
+    if status == "unavailable":
+        return None
+    if status == "ok":
+        parts.append(f"[TOOL {tc['tool']}@{tc['version']}] {_shown_description(sigma, arc)}")
+        parts.append(f"[TOOL_RESULT] {tc['returned']['value']}")
     from . import pipeline as _pipeline
     parts += _pipeline.question_lines(qtext)
     return "\n".join(parts)
@@ -138,9 +210,7 @@ def _detect_prompt(sigma, arc: Archive) -> List[Signal]:
     if not sigma.has("c"):
         # Commitment-only record: the binding check still works, as an equality
         # of hashes, provided every input to the recomputation is recorded.
-        if not (sigma.has("c_hash") and sigma.has("t_calls") or
-                sigma.has("c_hash") and "t_calls" in sigma.stored
-                and sigma.stored["t_calls"] is None):
+        if not (sigma.has("c_hash") and _tool_call(sigma, arc)[0] in ("ok", "no_call")):
             return []                               # Lemma C.X: nothing to compare
         canonical = _canonical_prompt(sigma, arc)
         if canonical is None or sha256(canonical) == sigma.get("c_hash"):
@@ -152,7 +222,7 @@ def _detect_prompt(sigma, arc: Archive) -> List[Signal]:
     canonical = _canonical_prompt(sigma, arc)
     if canonical is None:
         return []
-    if not sigma.has("t_calls"):
+    if _tool_call(sigma, arc)[0] not in ("ok", "no_call"):
         # The tool return is not derivable, so it is excluded from the comparison
         # on both sides rather than counted as an unexplained span.
         stored, canonical = _elide_tool_line(stored), _elide_tool_line(canonical)
@@ -177,11 +247,13 @@ def _detect_tool(sigma, arc: Archive) -> List[Signal]:
     if sigma.has("t_desc_hash") and sigma.get("t_desc_hash") != sha256(TOOL_DESCRIPTION):
         out.append(("F_T", 0.95, "the tool description shown to the model does not "
                                  "hash to the registered description"))
-    if not sigma.has("t_calls"):
-        return out                                  # Lemma C.T: transcript is required
-    tc = sigma.get("t_calls")
-    if not tc:
+    status, tc = _tool_call(sigma, arc)
+    if status == "unavailable":
+        out.append(("UNAVAILABLE", 0.0, "the recorded tool-response hash is absent "
+                                        "from the content store"))
         return out
+    if status != "ok":
+        return out                                  # Lemma C.T: transcript is required
 
     if sigma.has("t_id"):
         declared = f"{tc.get('tool')}@{tc.get('version')}"
@@ -202,8 +274,8 @@ def _detect_tool(sigma, arc: Archive) -> List[Signal]:
     # Numeric answers only: a text answer has no figure to cross-check, and
     # float() on it would raise.
     returned = (tc.get("returned") or {}).get("value")
-    if isinstance(returned, (int, float)) and not isinstance(returned, bool) \
-            and sigma.has("z_hashes"):
+    if arc.cross_source_check and isinstance(returned, (int, float)) \
+            and not isinstance(returned, bool) and sigma.has("z_hashes"):
         for h in sigma.get("z_hashes"):
             text = arc.doc_text_by_hash.get(h)
             if not text:
@@ -222,6 +294,12 @@ def _detect_policy(sigma, arc: Archive) -> List[Signal]:
         return []                                   # Lemma C.P
     w = sigma.get("p_witness")
     out: List[Signal] = []
+    if "tag" in w:
+        if not keys.verify(keys.WITNESS_KEY, witness_payload(w), w["tag"]):
+            out.append(("F_P", 0.97, "policy witness does not verify against the "
+                                     "witness wrapper's key"))
+    elif arc.require_witness_tag:
+        out.append(("F_P", 0.97, "policy witness carries no wrapper signature"))
     if not w.get("heartbeat", False) or w.get("rules_evaluated", 0) == 0:
         out.append(("F_P", 0.95, "policy witness reports no rule evaluation for this "
                                  "execution"))
@@ -245,12 +323,26 @@ def _detect_policy(sigma, arc: Archive) -> List[Signal]:
 PRIORITY = {"F_P": 3, "F_R": 2, "F_X": 1, "F_T": 0}
 
 
-def verify(sigma, arc: Archive) -> Verdict:
+def _signals(sigma, arc: Archive) -> List[Signal]:
     signals: List[Signal] = []
     signals += _detect_retrieval(sigma, arc)
     signals += _detect_policy(sigma, arc)
     signals += _detect_prompt(sigma, arc)
     signals += _detect_tool(sigma, arc)
+    return signals
+
+
+def verify_all(sigma, arc: Archive) -> VerdictSet:
+    """Round 8: the set of component classes that raised an alarm, with evidence."""
+    raw = _signals(sigma, arc)
+    unavailable = any(c == "UNAVAILABLE" for c, _, _ in raw)
+    signals = sorted([s for s in raw if s[0] != "UNAVAILABLE"],
+                     key=lambda s: (s[1], PRIORITY[s[0]]), reverse=True)
+    return VerdictSet(frozenset(c for c, _, _ in signals), signals, unavailable)
+
+
+def verify(sigma, arc: Archive) -> Verdict:
+    signals = [s for s in _signals(sigma, arc) if s[0] != "UNAVAILABLE"]
 
     if not signals:
         return Verdict("NONE", 1.0, "no anomaly derivable from the stored state", True)

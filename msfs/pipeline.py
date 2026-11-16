@@ -15,6 +15,7 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Protocol, Tuple
 
+from . import keys
 from .backends import Backend
 from .util import sha256
 
@@ -213,12 +214,23 @@ def call_tool(query: Query, docs: Dict[str, Doc],
 TOOL_IDENTITY = "policy_lookup@1.4.2"
 TOOL_DESCRIPTION = ("Looks up the figure or record of reference for the topic "
                     "named in the request and returns it.")
-TOOL_KEY = "tool-service-signing-key-2026"
+TOOL_KEY = keys.TOOL_KEY
+
+
+def tool_payload(result: Dict[str, Any]) -> str:
+    """What the tool service signs: name, version, arguments and returned value."""
+    return keys.canonical({"tool": result["tool"], "version": result["version"],
+                           "args": result["args"], "returned": result["returned"]})
 
 
 def tool_signature(result: Dict[str, Any]) -> str:
-    payload = f"{result['tool']}|{result['version']}|{result['args']}|{result['returned']}"
-    return sha256(TOOL_KEY + payload)
+    """HMAC-SHA256 under the registered tool's key (round 8; was sha256(key+payload))."""
+    return keys.sign(TOOL_KEY, tool_payload(result))
+
+
+def value_hash(value: Any) -> str:
+    """Content address of a tool's returned value in the deployer-side store."""
+    return sha256(keys.canonical(value))
 
 
 # --- P: policy ----------------------------------------------------------------
@@ -241,15 +253,26 @@ def register_restricted(values) -> None:
 
 
 def apply_policy(output: str, rules=None, version: str = POLICY_VERSION,
-                 fail_open: bool = False) -> Tuple[str, Dict[str, Any]]:
+                 fail_open: bool = False, skip_eval: bool = False
+                 ) -> Tuple[str, Dict[str, Any]]:
     """
-    The output filter, with an honest witness of what it did.
+    The output filter, and its own report of what it did.
 
     rules / version   the rule set and version actually loaded (default: the
                       version of record)
     fail_open         the filter raised or timed out and the pipeline released
                       the output without evaluating any rule
+    skip_eval         round 8, the lying filter: it returns normally and reports
+                      a full evaluation, but evaluated nothing
+
+    The report is the filter's self-report. Since round 8 it is not the
+    witness: witness_wrapper() builds the witness from what a process outside
+    the filter can observe, and signs it with a key the filter does not hold.
     """
+    if skip_eval:
+        rules = BLOCKED if rules is None else rules
+        return output, {"policy_version_hash": sha256(version), "verdict": "ALLOW",
+                        "heartbeat": True, "rules_evaluated": len(rules)}
     if fail_open:
         return output, {"policy_version_hash": sha256(version), "verdict": "ALLOW",
                         "heartbeat": False, "rules_evaluated": 0}
@@ -264,6 +287,38 @@ def apply_policy(output: str, rules=None, version: str = POLICY_VERSION,
     if violated:
         return "[BLOCKED BY POLICY]", witness
     return output, witness
+
+
+def witness_payload(witness: Dict[str, Any]) -> str:
+    return keys.canonical({k: v for k, v in witness.items() if k != "tag"})
+
+
+def witness_wrapper(report: Dict[str, Any], version_loaded: str, ran: bool,
+                    rules_loaded: int) -> Dict[str, Any]:
+    """
+    The policy witness, round 8 (assumption A-P).
+
+    A wrapper process outside the filter observes three things the filter cannot
+    misreport: which policy version the filter loaded (its configuration), whether
+    the filter's evaluation call returned at all (a crash or timeout does not),
+    and how many rules the loaded version holds. The verdict is taken from the
+    filter's report, because the wrapper cannot see inside the evaluation. The
+    wrapper signs the result with WITNESS_KEY.
+
+    Consequence, stated in the registration: a filter that loads the version of
+    record, returns normally and lies about having evaluated (lying_filter)
+    produces a witness identical to an honest one. It is caught only when it
+    releases a violating output, by the decision class the capture layer computes
+    independently (y_class).
+    """
+    w = {
+        "policy_version_hash": sha256(version_loaded),
+        "verdict": report.get("verdict", "ALLOW") if ran else "ALLOW",
+        "heartbeat": bool(ran),
+        "rules_evaluated": int(rules_loaded) if ran else 0,
+    }
+    w["tag"] = keys.sign(keys.WITNESS_KEY, witness_payload(w))
+    return w
 
 
 def decision_class(output: str) -> str:
@@ -287,6 +342,7 @@ class Fault:
     def on_prompt(self, prompt: str, q: Query, rng) -> str: return prompt
     def on_tool(self, result, q: Query, rng): return result
     def on_policy(self, output: str, witness, q: Query, rng): return output, witness
+    def on_witness(self, witness, q: Query, rng): return witness
     def policy_override(self) -> Dict[str, Any]:
         """Keyword arguments for apply_policy: how the filter itself was run."""
         return {}
@@ -327,6 +383,7 @@ def execute(
     answer_check: Optional[Any] = None,
     gen_rng: Optional[random.Random] = None,
     tool_store: Optional[Dict[str, Any]] = None,
+    signed_witness: bool = False,
 ) -> Dict[str, Any]:
     # gen_rng, when given, drives the model call alone, so that a faulted run and
     # its clean twin share the model's randomness even though the fault hooks
@@ -346,8 +403,18 @@ def execute(
     prompt = fault.on_prompt(prompt, query, rng)
 
     gen = backend.generate(prompt, theta, gen_rng or rng)
-    output, witness = apply_policy(gen.text, **fault.policy_override())
-    output, witness = fault.on_policy(output, witness, query, rng)
+    override = fault.policy_override()
+    output, report = apply_policy(gen.text, **override)
+    output, report = fault.on_policy(output, report, query, rng)
+    if signed_witness:
+        loaded = override.get("rules")
+        witness = witness_wrapper(
+            report, override.get("version", POLICY_VERSION),
+            ran=not override.get("fail_open", False),
+            rules_loaded=len(BLOCKED if loaded is None else loaded))
+    else:
+        witness = report                      # pre-round-8 behaviour
+    witness = fault.on_witness(witness, query, rng)
 
     if answer_check:
         correct = answer_check(output, query)
@@ -377,6 +444,13 @@ def execute(
         "t_calls": ({k: v for k, v in tool_result.items()
                      if k != "sig" and not k.startswith("_")}
                     if tool_result else None),
+        # round 8: the transcript with the returned value replaced by its content
+        # hash; the value itself goes to the deployer-side store
+        "t_calls_h": (dict({k: v for k, v in tool_result.items()
+                            if k not in ("sig", "returned") and not k.startswith("_")},
+                           returned={"value_hash": value_hash(tool_result["returned"]["value"]),
+                                     "unit": tool_result["returned"].get("unit")})
+                      if tool_result else None),
         "t_id": TOOL_IDENTITY if tool_result is not None else None,
         "t_attest": tool_result.get("sig") if tool_result else None,
         "t_desc_hash": (sha256(tool_result.get("_description", TOOL_DESCRIPTION))
@@ -395,5 +469,10 @@ def execute(
         "_outcome_bad": outcome_bad,
         "_released_violation": released_violation,
         "_gold_value": query.answer_value,
+        # what the capture layer writes to the deployer-side content store
+        "_store": ({value_hash(tool_result["returned"]["value"]): tool_result["returned"]["value"],
+                    sha256(tool_result.get("_description", TOOL_DESCRIPTION)):
+                        tool_result.get("_description", TOOL_DESCRIPTION)}
+                   if tool_result else {}),
     }
     return tau

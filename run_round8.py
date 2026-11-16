@@ -138,7 +138,9 @@ def setup(args):
         queries = [q for q in queries if q.gold_doc in
                    [d.doc_id for d, _ in fn(q, docs, args.top_k, random.Random(0))]]
         print(f"answerable-only: kept {len(queries)} of {before} questions", file=sys.stderr)
-    values, restricted = pick_restricted(queries, docs, random.Random(args.seed + 1))
+    values, restricted = pick_restricted(queries, docs, random.Random(args.seed + 1),
+                                         fraction=args.restricted_frac,
+                                         cap=args.restricted_cap)
     pipeline.register_restricted(values)
     return docs, queries, retriever, restricted
 
@@ -651,6 +653,9 @@ def main() -> int:
     ap.add_argument("--corpus", default="synthetic", choices=["synthetic", "hotpotqa"])
     ap.add_argument("--n", type=int, default=72, help="questions per pair")
     ap.add_argument("--n-extra", type=int, default=36, help="runs per descriptive arm")
+    ap.add_argument("--restricted-frac", type=float, default=0.2,
+                    help="share of questions whose answer the policy restricts")
+    ap.add_argument("--restricted-cap", type=int, default=80)
     ap.add_argument("--cap-g12", type=int, default=18,
                     help="Part B: G1 and G2 disputes per F_D pair (4 pairs: 72 in all)")
     ap.add_argument("--cap-g3", type=int, default=8,
@@ -734,7 +739,8 @@ def main() -> int:
     meta = {"backend": args.backend, "corpus": args.corpus, "scorer": args.scorer,
             "answer_format": args.answer_format, "temperature": args.temperature,
             "seed": args.seed, "pairs": args.pairs, "n": args.n, "n_extra": args.n_extra,
-            "cap_g12": args.cap_g12, "cap_g3": args.cap_g3, "budget": args.budget,
+            "restricted_frac": args.restricted_frac, "restricted_cap": args.restricted_cap,
+            "examples": len(queries), "cap_g12": args.cap_g12, "cap_g3": args.cap_g3, "budget": args.budget,
             "encoder": getattr(retriever, "model_name", None)}
     (out / "meta.json").write_text(json.dumps(meta, indent=2))
     (out / "plan.json").write_text(json.dumps(blocks, indent=1))

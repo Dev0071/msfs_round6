@@ -45,6 +45,10 @@ DEFAULT_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 MODEL_NAME = os.environ.get("MSFS_ENCODER", DEFAULT_MODEL)
 _slug = _re.sub(r"[^A-Za-z0-9]+", "-", MODEL_NAME.split("/")[-1]).strip("-").lower()
 CACHE = Path("corpus_cache" if MODEL_NAME == DEFAULT_MODEL else f"corpus_cache_{_slug}")
+# Round 8: MSFS_CACHE names a separate cache directory, so a larger corpus can be
+# built without touching the 200-example corpus rounds 6 and 7 were run on.
+if os.environ.get("MSFS_CACHE"):
+    CACHE = Path(os.environ["MSFS_CACHE"])
 
 # Some encoders expect an instruction in front of the query (not the passage).
 QUERY_PREFIX = {
@@ -232,10 +236,12 @@ class DenseRetriever:
 # --- selftest -----------------------------------------------------------------
 
 def _selftest() -> None:
-    docs, queries = build(n_examples=200)
+    n = int(os.environ.get("MSFS_EXAMPLES", "200"))
+    docs, queries = build(n_examples=n)
     r = DenseRetriever(docs)
     hit_at_1 = hit_at_4 = 0
-    sample = queries[:100]
+    sample = queries if os.environ.get("MSFS_EXAMPLES") else queries[:100]
+    print(f"{n} examples, {len(docs)} passages, {len(queries)} usable questions")
     for q in sample:
         got = [d.doc_id for d, _ in r(q, docs, 4, random.Random(0))]
         hit_at_1 += q.gold_doc == got[0] if got else 0

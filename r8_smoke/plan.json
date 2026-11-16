@@ -1,0 +1,144 @@
+[
+ {
+  "arm": "rug_pull",
+  "query_id": "hp-000294",
+  "block": 11000,
+  "seed": 882787926,
+  "classes": [
+   "F_T"
+  ]
+ },
+ {
+  "arm": "lying_filter",
+  "query_id": "hp-001293",
+  "block": 12001,
+  "seed": 2061501850,
+  "classes": [
+   "F_P"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001514",
+  "block": 5001,
+  "seed": 1271821546,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "forged_witness",
+  "query_id": "hp-000015",
+  "block": 13001,
+  "seed": 483526841,
+  "classes": [
+   "F_P"
+  ]
+ },
+ {
+  "arm": "liar",
+  "pair": "F_R+F_X",
+  "classes": [
+   "F_R",
+   "F_X"
+  ],
+  "query_id": "hp-001889",
+  "block": 14000,
+  "seed": 1218624739
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001457",
+  "block": 4001,
+  "seed": 1020367332,
+  "pair": "F_R+F_D",
+  "classes": [
+   "F_R",
+   "F_D"
+  ]
+ },
+ {
+  "arm": "rug_pull",
+  "query_id": "hp-000132",
+  "block": 11001,
+  "seed": 23623143,
+  "classes": [
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001212",
+  "block": 5000,
+  "seed": 663470491,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "lying_filter",
+  "query_id": "hp-001373",
+  "block": 12000,
+  "seed": 1549016146,
+  "classes": [
+   "F_P"
+  ]
+ },
+ {
+  "arm": "forged_witness",
+  "query_id": "hp-000279",
+  "block": 13000,
+  "seed": 77561579,
+  "classes": [
+   "F_P"
+  ]
+ },
+ {
+  "arm": "liar",
+  "pair": "F_R+F_T",
+  "classes": [
+   "F_R",
+   "F_T"
+  ],
+  "query_id": "hp-001176",
+  "block": 14001,
+  "seed": 563611031
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000134",
+  "block": 4000,
+  "seed": 1349599419,
+  "pair": "F_R+F_D",
+  "classes": [
+   "F_R",
+   "F_D"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000914",
+  "block": 5002,
+  "seed": 1861215953,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000883",
+  "block": 4002,
+  "seed": 1071869849,
+  "pair": "F_R+F_D",
+  "classes": [
+   "F_R",
+   "F_D"
+  ]
+ }
+]

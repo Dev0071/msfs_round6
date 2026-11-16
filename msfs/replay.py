@@ -64,7 +64,7 @@ from typing import Any, Callable, Dict, FrozenSet, List, Optional, Tuple
 from .verifier import Archive, _shown_description, _tool_call, verify_all
 
 LIBRARY = ("library", "library_joint")
-DEFAULT_BUDGET = 40          # replays per dispute, registered
+DEFAULT_BUDGET = 24          # replays per dispute, registered
 MAX_REMOVAL = 5              # largest set of passages taken out at once
 
 

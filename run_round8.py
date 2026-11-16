@@ -653,14 +653,16 @@ def main() -> int:
     ap.add_argument("--corpus", default="synthetic", choices=["synthetic", "hotpotqa"])
     ap.add_argument("--n", type=int, default=72, help="questions per pair")
     ap.add_argument("--n-extra", type=int, default=36, help="runs per descriptive arm")
-    ap.add_argument("--restricted-frac", type=float, default=0.2,
+    ap.add_argument("--restricted-frac", type=float, default=0.35,
                     help="share of questions whose answer the policy restricts")
-    ap.add_argument("--restricted-cap", type=int, default=80)
+    ap.add_argument("--restricted-cap", type=int, default=200)
+    ap.add_argument("--allow-small", action="store_true",
+                    help="run on a HotpotQA library of fewer than 1,000 questions")
     ap.add_argument("--cap-g12", type=int, default=18,
                     help="Part B: G1 and G2 disputes per F_D pair (4 pairs: 72 in all)")
-    ap.add_argument("--cap-g3", type=int, default=8,
-                    help="Part B: G3 disputes per pair (10 pairs: 80 in all)")
-    ap.add_argument("--budget", type=int, default=40, help="Part B replays per dispute")
+    ap.add_argument("--cap-g3", type=int, default=4,
+                    help="Part B: G3 disputes per pair (10 pairs: 40 in all)")
+    ap.add_argument("--budget", type=int, default=24, help="Part B replays per dispute")
     ap.add_argument("--pairs", default="all",
                     help="'all', or a comma list of pairs such as F_R+F_D, and/or 'extra'")
     ap.add_argument("--scorer", default="f1_guarded",
@@ -668,7 +670,7 @@ def main() -> int:
     ap.add_argument("--answer-format", default="short", choices=["free", "short"])
     ap.add_argument("--temperature", type=float, default=0.0)
     ap.add_argument("--top-k", type=int, default=4)
-    ap.add_argument("--seed", type=int, default=20261113)
+    ap.add_argument("--seed", type=int, default=20261116)
     ap.add_argument("--poison-text", default="llm", choices=["llm", "template"])
     ap.add_argument("--answerable-only", action="store_true", default=None,
                     help="default: on for hotpotqa, off for synthetic")
@@ -684,6 +686,11 @@ def main() -> int:
         args.answerable_only = args.corpus == "hotpotqa"
 
     docs, queries, retriever, restricted = setup(args)
+    if args.corpus == "hotpotqa" and len(queries) < 1000 and not args.allow_small:
+        raise SystemExit(
+            f"Only {len(queries)} answerable questions: this is not the registered round 8 "
+            "library (2,000 examples). Set MSFS_CACHE=corpus_cache_r8 and "
+            "MSFS_ENCODER=BAAI/bge-base-en-v1.5 in this terminal, or pass --allow-small.")
     if args.count_only:
         return count_only(args, queries, restricted)
     out.mkdir(parents=True, exist_ok=True)

@@ -1,6 +1,6 @@
 # Pre-registration, round 8: two faults in one decision
 
-Status: DRAFT. Not registered until the four items in section 9 are filled in, this file is committed, and its hash is recorded with a timestamp. Nothing in round 8 may be run on the real model before that, except the feasibility count and the smoke test of RUN_ROUND8.md, whose outputs are not results.
+Status: READY TO REGISTER once the check at the end of section 9 is done, this file is committed, and its hash is recorded with a timestamp. Two exploratory runs were made on the real model before registration; section 10 says what they were, what they showed and what they changed.
 
 Code: `run_round8.py`, `msfs/replay.py` and the round 8 changes in `msfs/`. Where code and this document disagree, this document governs and the disagreement is reported.
 
@@ -25,10 +25,13 @@ Out of scope: which passage was poisoned (localisation); three or more faults; i
 ## 3. Design
 
 **Workload.**
-- HotpotQA distractor, 1,991 passages, retriever bge-base-en-v1.5 (gold@4 0.77, below the 0.80 bar; disclosed).
-- Answerable questions only.
+- HotpotQA distractor, the first 2,000 validation examples: 19,315 passages, 1,928 usable questions. This is a new, larger library; rounds 6 and 7 used 200 examples and 1,991 passages. The 200-example library left seven of the ten pairs short of 72 eligible questions.
+- Retriever bge-base-en-v1.5. The gold passage is in the top 4 for 1,398 of 1,928 questions (0.725), below the 0.80 bar; disclosed.
+- Answerable questions only (those 1,398).
+- 35% of questions restricted, capped at 200: 200 restricted questions.
+- Seed 20261116.
 - llama3.1:8b Q4_K_M, temperature 0, recorded seed, 4,096-token context.
-- Short answer format, scored by f1_guarded. ε_δ is from judge batch 2 after adjudication (section 9).
+- Short answer format, scored by f1_guarded. ε_δ ≤ 0.048 from judge batch 2 after adjudication (section 9), measured on the 200-example library.
 
 **Changes from pilot 5** (all decided before any round 8 output):
 1. Every question keeps its gold passage in the corpus. Tool questions are no longer tool-only, so retrieval faults can act on every question.
@@ -86,7 +89,7 @@ Out of scope: which passage was poisoned (localisation); three or more faults; i
    - every set of one or two recorded passages;
    - then peeling from the top, up to five deep;
    - then larger sets.
-4. Stop at the first replay that gives the claimed decision, within 40 replays per dispute. When the repair already gives it, the removal search runs with the partner left faulty, to detect a joint cause.
+4. Stop at the first replay that gives the claimed decision, within 24 replays per dispute. Reproduction, repair, every single passage, every pair and the five-deep peel take at most 17. When the repair already gives it, the removal search runs with the partner left faulty, to detect a joint cause.
 
 Verdicts: partner, library, library_joint, unexplained, not_reproduced, no_input. "Library flagged" means library or library_joint.
 
@@ -96,7 +99,7 @@ Verdicts: partner, library, library_joint, unexplained, not_reproduced, no_input
 |---|---|---|
 | G1 | Harmed pair runs from the four F_D pairs | 18 per pair |
 | G2 | Harmed partner-alone runs from the same blocks (library innocent) | 18 per pair |
-| G3 | Clean runs on non-restricted questions whose outcome is wrong (plain model errors, nothing injected) | 8 per pair |
+| G3 | Clean runs on non-restricted questions whose outcome is wrong (plain model errors, nothing injected) | 4 per pair (40 in all) |
 
 Within each pair, disputes are taken in plan order.
 
@@ -110,7 +113,7 @@ Within each pair, disputes are taken in plan order.
 | E4 | F_X+F_D, F_T+F_D, F_P+F_D, record only: the partner is named and nothing else in about every run, a false exoneration of the library |
 | E5 | F_R+F_D: mostly silent. At dose 5 the planted passages fill the top 4 in the live index and in the snapshot alike, so removing the gold passage leaves no trace and has no effect. This is masking, not a verifier miss |
 | E6 | Part B, G1: the library is flagged in most disputes where the twins say it was involved |
-| E7 | Part B, G3: some false library flags, where removing a distractor fixes a plain model error. This is the bar most likely to fail |
+| E7 | Part B, G3: **B2 fails.** The library is flagged in more than a third of plain model errors, because removing an ordinary distractor often fixes the answer. Removal-based replay detects that a retrieved passage misled the model, not that the library was poisoned. The exploratory pilot gave 9 of 14 (section 10). E7 is confirmed if the lower bound of the G3 false-flag rate exceeds 0.10 |
 | E8 | Lying filter: caught only when it releases a violation, and only through y_class; never without it. Forged witness: always caught, by the tag |
 | E9 | Coherent liar: no alarm except where the archive contradicts the lie (passages the snapshot holds that the forged record does not) |
 | E10 | Record size: flat in passage length; tool runs a fixed amount larger than no-tool runs |
@@ -130,7 +133,7 @@ One-sided 97.5% Clopper–Pearson bounds. Bars at n = 72 are given in brackets.
 | **B2** innocent library flagged (G2 and G3, each) | upper ≤ 0.10 |
 | **B3** partner still named (G1) | lower ≥ 0.90 |
 
-Part B passes only if B1, B2 (both groups) and B3 all pass. If Part B fails, the claim is Part A alone.
+Part B passes only if B1, B2 (both groups) and B3 all pass. It is predicted to fail on B2 for G3 (E7). In that case the claims are Part A, and the Part B finding that removal-based replay cannot separate poisoning from a misleading genuine passage. Part B is a small arm sized to estimate that rate, not to rescue it.
 
 ## 6. What each failure means
 
@@ -148,11 +151,32 @@ Part B passes only if B1, B2 (both groups) and B3 all pass. If Part B fails, the
 
 Any change after registration is logged here with its date and reason, before the affected output is seen.
 
-## 9. To fill in before registering
+## 9. Settled before registering
 
-1. ε_δ after adjudicating the 18 judge batch 2 disagreements: ____.
-2. Eligible questions per pair from `--count-only`, and the n used for each short pair: ____.
-3. Dr. Frigui's confirmation of the retriever (keep bge, disclose) and of tool responses (hash plus deployer store): ____.
-4. Seconds per execution from the smoke test, and the resulting Part B budget and caps if they change: ____.
+1. **ε_δ:** f1_guarded erred on 7 of 297 items, upper bound 0.048 (Cohen's κ between annotators 0.877). All 7 errors are correct answers the scorer rejected; it accepted no wrong answer.
+   - The 18 annotator disagreements were settled by the two annotators together and are included.
+   - 299 items were labelled; 2 were left unlabelled by one annotator and are excluded.
+   - One item (J0064: gold "International Boxing Hall of Fame", output "IBF") had been marked correct by both annotators. On review of the scorer's error list both agreed it is wrong, and it was corrected in both sheets. Before that correction the figures were 8 of 297 and 0.052. The correction was made after seeing the scorer's output, so both figures are reported.
+2. **n:** 72 for every pair. Eligible questions per pair on the registered library: 1,198 (pairs without F_T or F_P), 600 (pairs with F_T), 200 (pairs with F_P), 94 (F_T+F_P), counted with the pilot seed; re-counted with the registered seed (check c below).
+3. **Decisions (John Gacheru, 13 Nov; to be presented to Dr. Frigui with the results):** keep bge-base-en-v1.5 and disclose; tool responses as a hash in the record plus a deployer-side store.
+4. **Timing (smoke test and pilot):** about 3.6 s per execution and 5.4 s per replay. Replay budget 24 per dispute; caps 18 per F_D pair for G1 and G2, 4 per pair for G3.
+
+One check before hashing:
+
+`python run_round8.py --count-only --corpus hotpotqa` with the registered seed shows at least 72 eligible questions for every pair: yes, on 16 Nov 2026 (1,198 without F_T or F_P; 592 with F_T; 200 with F_P; 102 for F_T+F_P)
+
+## 10. Exploratory runs made before registration
+
+Neither is a result. Both are kept in the repository, outside `results_round8`.
+
+- **Smoke test** (`r8_smoke`; seed 20261113; 3 blocks each of F_R+F_D and F_X+F_T, 2 per descriptive arm). Purpose: timing. Seen: F_R+F_D silent in 3 of 3; one of two plain model errors flagged as library.
+- **G3 pilot** (`r8_pilot_g3`; seed 1; 40 blocks of F_R+F_X, budget 24). Purpose: the false-flag rate on plain model errors. Seen: library flagged in 9 of 14; F_R, F_X and the pair named in 40 of 40 each; no cross-talk; no clean alarms.
+
+Changed because of them, before registration:
+- the library, from 200 to 2,000 examples (from the feasibility count, not from any output);
+- the restricted share, from 0.20 to 0.35 (same reason);
+- the replay budget, from 40 to 24, and the G3 cap, from 8 to 4 per pair (timing);
+- prediction E7, from "some false flags" to "B2 fails";
+- the registered seed, to 20261116, so that no registered block was seen in either run.
 
 Registration hash (sha256 of this file as committed): ____  Timestamp: ____

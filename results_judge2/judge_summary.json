@@ -2,9 +2,9 @@
   "best": {
     "format": "short",
     "scorer": "f1_guarded",
-    "error": 0.025089605734767026,
-    "eps_delta_upper": 0.05100867481214436
+    "error": 0.026936026936026935,
+    "eps_delta_upper": 0.052382807048654806
   },
-  "n_labelled": 279,
+  "n_labelled": 297,
   "kappa_annotators": 0.8768996960486323
 }

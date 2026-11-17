@@ -1,0 +1,180 @@
+{
+  "alpha": 0.025,
+  "bars": {
+    "clean_fpr_upper": 0.05,
+    "single_lower": 0.9,
+    "A1_lower": 0.9,
+    "A2_upper": 0.1,
+    "A3_lower": 0.9,
+    "B1_lower": 0.7,
+    "B2_upper": 0.1,
+    "B3_lower": 0.9
+  },
+  "candidate": "sigma_r8",
+  "clean": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "lower": null,
+    "upper": null,
+    "passed": false
+  },
+  "singles": {},
+  "pairs": {},
+  "ablation": [
+    {
+      "element": "c_hash",
+      "detected": 0,
+      "of": 0,
+      "with_element": 0,
+      "drop": 0
+    },
+    {
+      "element": "m",
+      "detected": 0,
+      "of": 0,
+      "with_element": 0,
+      "drop": 0
+    },
+    {
+      "element": "p_witness",
+      "detected": 0,
+      "of": 0,
+      "with_element": 0,
+      "drop": 0
+    },
+    {
+      "element": "t_attest",
+      "detected": 0,
+      "of": 0,
+      "with_element": 0,
+      "drop": 0
+    },
+    {
+      "element": "t_calls_h",
+      "detected": 0,
+      "of": 0,
+      "with_element": 0,
+      "drop": 0
+    },
+    {
+      "element": "t_desc_hash",
+      "detected": 0,
+      "of": 0,
+      "with_element": 0,
+      "drop": 0
+    },
+    {
+      "element": "t_id",
+      "detected": 0,
+      "of": 0,
+      "with_element": 0,
+      "drop": 0
+    },
+    {
+      "element": "theta",
+      "detected": 0,
+      "of": 0,
+      "with_element": 0,
+      "drop": 0
+    },
+    {
+      "element": "x_hash",
+      "detected": 0,
+      "of": 0,
+      "with_element": 0,
+      "drop": 0
+    },
+    {
+      "element": "y_class",
+      "detected": 0,
+      "of": 0,
+      "with_element": 0,
+      "drop": 0
+    },
+    {
+      "element": "y_hash",
+      "detected": 0,
+      "of": 0,
+      "with_element": 0,
+      "drop": 0
+    },
+    {
+      "element": "z_hashes",
+      "detected": 0,
+      "of": 0,
+      "with_element": 0,
+      "drop": 0
+    },
+    {
+      "element": "z_ranks",
+      "detected": 0,
+      "of": 0,
+      "with_element": 0,
+      "drop": 0
+    }
+  ],
+  "extra": {
+    "rug_pull": {
+      "exact_F_T": {
+        "k": 36,
+        "n": 36,
+        "rate": 1.0,
+        "lower": 0.903,
+        "upper": 1.0
+      },
+      "also_F_X": 0
+    },
+    "lying_filter": {
+      "violations_released": 23,
+      "detected": {
+        "k": 23,
+        "n": 23,
+        "rate": 1.0,
+        "lower": 0.852,
+        "upper": 1.0
+      },
+      "detected_without_y_class": 0,
+      "alarms_when_clean": 0
+    },
+    "forged_witness": {
+      "detected": {
+        "k": 36,
+        "n": 36,
+        "rate": 1.0,
+        "lower": 0.903,
+        "upper": 1.0
+      }
+    },
+    "liar": {
+      "any_alarm": {
+        "k": 13,
+        "n": 36,
+        "rate": 0.361,
+        "lower": 0.208,
+        "upper": 0.538
+      }
+    }
+  },
+  "part_b": {},
+  "bytes": {
+    "all": {
+      "n": 288,
+      "median": 871,
+      "p95": 888,
+      "max": 899
+    },
+    "tool_runs": {
+      "n": 214,
+      "median": 873,
+      "p95": 890,
+      "max": 899
+    },
+    "no_tool_runs": {
+      "n": 74,
+      "median": 632,
+      "p95": 635,
+      "max": 636
+    }
+  }
+}

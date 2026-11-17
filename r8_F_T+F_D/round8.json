@@ -1,0 +1,312 @@
+{
+  "alpha": 0.025,
+  "bars": {
+    "clean_fpr_upper": 0.05,
+    "single_lower": 0.9,
+    "A1_lower": 0.9,
+    "A2_upper": 0.1,
+    "A3_lower": 0.9,
+    "B1_lower": 0.7,
+    "B2_upper": 0.1,
+    "B3_lower": 0.9
+  },
+  "candidate": "sigma_r8",
+  "clean": {
+    "k": 0,
+    "n": 72,
+    "rate": 0.0,
+    "lower": 0.0,
+    "upper": 0.05,
+    "passed": true
+  },
+  "singles": {
+    "F_T": {
+      "detected": {
+        "k": 72,
+        "n": 72,
+        "rate": 1.0,
+        "lower": 0.95,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 72,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.05
+      },
+      "harmed": 5,
+      "passed": true
+    },
+    "F_D": {
+      "detected": {
+        "k": 72,
+        "n": 72,
+        "rate": 1.0,
+        "lower": 0.95,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 72,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.05
+      },
+      "harmed": 15,
+      "passed": true
+    }
+  },
+  "pairs": {
+    "F_T+F_D": {
+      "n": 72,
+      "joint": {
+        "k": 72,
+        "n": 72,
+        "rate": 1.0,
+        "lower": 0.95,
+        "upper": 1.0
+      },
+      "exact": {
+        "k": 72,
+        "n": 72,
+        "rate": 1.0,
+        "lower": 0.95,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 72,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.05
+      },
+      "silent": {
+        "k": 0,
+        "n": 72,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.05
+      },
+      "harmed": 31,
+      "unavailable": 0,
+      "A2_passed": true,
+      "kind": "F_D pair",
+      "false_exoneration": {
+        "k": 72,
+        "n": 72,
+        "rate": 1.0,
+        "lower": 0.95,
+        "upper": 1.0
+      },
+      "A3_confirmed": true,
+      "truth": {
+        "library_involved": 30,
+        "partner_needed": 16,
+        "library_changed_decision": 46
+      },
+      "compare": {
+        "sigma_hash_plus": 72,
+        "otel_default": 0,
+        "otel_content": 0,
+        "openinference": 0,
+        "openinference_guard": 0
+      }
+    }
+  },
+  "ablation": [
+    {
+      "element": "t_attest",
+      "detected": 0,
+      "of": 144,
+      "with_element": 144,
+      "drop": 144
+    },
+    {
+      "element": "t_calls_h",
+      "detected": 0,
+      "of": 144,
+      "with_element": 144,
+      "drop": 144
+    },
+    {
+      "element": "c_hash",
+      "detected": 144,
+      "of": 144,
+      "with_element": 144,
+      "drop": 0
+    },
+    {
+      "element": "m",
+      "detected": 144,
+      "of": 144,
+      "with_element": 144,
+      "drop": 0
+    },
+    {
+      "element": "p_witness",
+      "detected": 144,
+      "of": 144,
+      "with_element": 144,
+      "drop": 0
+    },
+    {
+      "element": "t_desc_hash",
+      "detected": 144,
+      "of": 144,
+      "with_element": 144,
+      "drop": 0
+    },
+    {
+      "element": "t_id",
+      "detected": 144,
+      "of": 144,
+      "with_element": 144,
+      "drop": 0
+    },
+    {
+      "element": "theta",
+      "detected": 144,
+      "of": 144,
+      "with_element": 144,
+      "drop": 0
+    },
+    {
+      "element": "x_hash",
+      "detected": 144,
+      "of": 144,
+      "with_element": 144,
+      "drop": 0
+    },
+    {
+      "element": "y_class",
+      "detected": 144,
+      "of": 144,
+      "with_element": 144,
+      "drop": 0
+    },
+    {
+      "element": "y_hash",
+      "detected": 144,
+      "of": 144,
+      "with_element": 144,
+      "drop": 0
+    },
+    {
+      "element": "z_hashes",
+      "detected": 144,
+      "of": 144,
+      "with_element": 144,
+      "drop": 0
+    },
+    {
+      "element": "z_ranks",
+      "detected": 144,
+      "of": 144,
+      "with_element": 144,
+      "drop": 0
+    }
+  ],
+  "extra": {},
+  "part_b": {
+    "G1": {
+      "n": 18,
+      "verdicts": {
+        "library_joint": 10,
+        "library": 8
+      },
+      "flagged": {
+        "k": 18,
+        "n": 18,
+        "rate": 1.0,
+        "lower": 0.815,
+        "upper": 1.0
+      },
+      "replays": 162,
+      "B1": {
+        "k": 17,
+        "n": 17,
+        "rate": 1.0,
+        "lower": 0.805,
+        "upper": 1.0,
+        "passed": true
+      },
+      "flagged_when_not_involved": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "B3": {
+        "k": 18,
+        "n": 18,
+        "rate": 1.0,
+        "lower": 0.815,
+        "upper": 1.0,
+        "passed": false
+      }
+    },
+    "G2": {
+      "n": 5,
+      "verdicts": {
+        "partner": 3,
+        "library_joint": 2
+      },
+      "flagged": {
+        "k": 2,
+        "n": 5,
+        "rate": 0.4,
+        "lower": 0.053,
+        "upper": 0.853
+      },
+      "replays": 80,
+      "B2": {
+        "k": 2,
+        "n": 5,
+        "rate": 0.4,
+        "lower": 0.053,
+        "upper": 0.853,
+        "passed": false
+      }
+    },
+    "G3": {
+      "n": 4,
+      "verdicts": {
+        "unexplained": 4
+      },
+      "flagged": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.602
+      },
+      "replays": 96,
+      "B2": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.602,
+        "passed": false
+      }
+    }
+  },
+  "part_b_passed": false,
+  "bytes": {
+    "all": {
+      "n": 288,
+      "median": 873,
+      "p95": 895,
+      "max": 899
+    },
+    "tool_runs": {
+      "n": 288,
+      "median": 873,
+      "p95": 895,
+      "max": 899
+    },
+    "no_tool_runs": null
+  }
+}

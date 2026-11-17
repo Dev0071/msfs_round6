@@ -1,0 +1,794 @@
+[
+ {
+  "arm": "pair",
+  "query_id": "hp-001726",
+  "block": 5056,
+  "seed": 949964127,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000156",
+  "block": 5039,
+  "seed": 1651704404,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001430",
+  "block": 5015,
+  "seed": 617854364,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000860",
+  "block": 5058,
+  "seed": 1928893359,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000840",
+  "block": 5007,
+  "seed": 1541796917,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000890",
+  "block": 5009,
+  "seed": 523828,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001654",
+  "block": 5052,
+  "seed": 556592772,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000998",
+  "block": 5054,
+  "seed": 112447693,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001158",
+  "block": 5008,
+  "seed": 1487001445,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000928",
+  "block": 5027,
+  "seed": 659799668,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001148",
+  "block": 5018,
+  "seed": 1798155062,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001614",
+  "block": 5050,
+  "seed": 1573825574,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001256",
+  "block": 5070,
+  "seed": 1785035888,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001498",
+  "block": 5025,
+  "seed": 130868229,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001354",
+  "block": 5053,
+  "seed": 2051953693,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000964",
+  "block": 5026,
+  "seed": 1062122288,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000552",
+  "block": 5065,
+  "seed": 1604438635,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001668",
+  "block": 5000,
+  "seed": 1287333774,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000768",
+  "block": 5003,
+  "seed": 338868562,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000142",
+  "block": 5069,
+  "seed": 1331218763,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000646",
+  "block": 5071,
+  "seed": 1482375819,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000514",
+  "block": 5064,
+  "seed": 475339329,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000754",
+  "block": 5066,
+  "seed": 575884752,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001054",
+  "block": 5020,
+  "seed": 628294813,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001168",
+  "block": 5012,
+  "seed": 1919322545,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000302",
+  "block": 5055,
+  "seed": 321191394,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000644",
+  "block": 5024,
+  "seed": 1584100528,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000618",
+  "block": 5051,
+  "seed": 312822701,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000318",
+  "block": 5010,
+  "seed": 158775208,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000656",
+  "block": 5067,
+  "seed": 578539098,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001818",
+  "block": 5019,
+  "seed": 1610985978,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001688",
+  "block": 5059,
+  "seed": 292475916,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000882",
+  "block": 5022,
+  "seed": 933676423,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000958",
+  "block": 5049,
+  "seed": 1420856888,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001896",
+  "block": 5060,
+  "seed": 1930436881,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001700",
+  "block": 5038,
+  "seed": 280634095,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001286",
+  "block": 5047,
+  "seed": 653997693,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000660",
+  "block": 5040,
+  "seed": 1366397065,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001162",
+  "block": 5036,
+  "seed": 1254364995,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000940",
+  "block": 5006,
+  "seed": 843382515,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000348",
+  "block": 5002,
+  "seed": 2071414344,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001662",
+  "block": 5030,
+  "seed": 1372995707,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001722",
+  "block": 5016,
+  "seed": 1894212022,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001382",
+  "block": 5001,
+  "seed": 1219015525,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001912",
+  "block": 5011,
+  "seed": 1221537216,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001170",
+  "block": 5014,
+  "seed": 1043208210,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001318",
+  "block": 5057,
+  "seed": 1768462299,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001314",
+  "block": 5035,
+  "seed": 2142543424,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000722",
+  "block": 5063,
+  "seed": 1539266670,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000856",
+  "block": 5041,
+  "seed": 1698634407,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000630",
+  "block": 5021,
+  "seed": 1333967028,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001790",
+  "block": 5005,
+  "seed": 2022943685,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001528",
+  "block": 5037,
+  "seed": 81684941,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000584",
+  "block": 5046,
+  "seed": 1276004273,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000522",
+  "block": 5031,
+  "seed": 1536560776,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000972",
+  "block": 5032,
+  "seed": 1651279155,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001478",
+  "block": 5028,
+  "seed": 516941731,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001374",
+  "block": 5004,
+  "seed": 164283090,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001916",
+  "block": 5029,
+  "seed": 1774429521,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001174",
+  "block": 5042,
+  "seed": 380519590,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000128",
+  "block": 5068,
+  "seed": 531052653,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000770",
+  "block": 5061,
+  "seed": 807052288,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001558",
+  "block": 5017,
+  "seed": 142848376,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000020",
+  "block": 5034,
+  "seed": 788964170,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001748",
+  "block": 5048,
+  "seed": 130985630,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001692",
+  "block": 5045,
+  "seed": 757030791,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001470",
+  "block": 5033,
+  "seed": 214319828,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000614",
+  "block": 5062,
+  "seed": 1664334771,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000346",
+  "block": 5043,
+  "seed": 494029444,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-000684",
+  "block": 5044,
+  "seed": 571432780,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001752",
+  "block": 5023,
+  "seed": 1546181221,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ },
+ {
+  "arm": "pair",
+  "query_id": "hp-001028",
+  "block": 5013,
+  "seed": 1024015916,
+  "pair": "F_X+F_T",
+  "classes": [
+   "F_X",
+   "F_T"
+  ]
+ }
+]

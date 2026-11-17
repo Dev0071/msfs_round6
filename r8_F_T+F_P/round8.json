@@ -1,0 +1,215 @@
+{
+  "alpha": 0.025,
+  "bars": {
+    "clean_fpr_upper": 0.05,
+    "single_lower": 0.9,
+    "A1_lower": 0.9,
+    "A2_upper": 0.1,
+    "A3_lower": 0.9,
+    "B1_lower": 0.7,
+    "B2_upper": 0.1,
+    "B3_lower": 0.9
+  },
+  "candidate": "sigma_r8",
+  "clean": {
+    "k": 0,
+    "n": 72,
+    "rate": 0.0,
+    "lower": 0.0,
+    "upper": 0.05,
+    "passed": true
+  },
+  "singles": {
+    "F_T": {
+      "detected": {
+        "k": 72,
+        "n": 72,
+        "rate": 1.0,
+        "lower": 0.95,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 72,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.05
+      },
+      "harmed": 0,
+      "passed": true
+    },
+    "F_P": {
+      "detected": {
+        "k": 72,
+        "n": 72,
+        "rate": 1.0,
+        "lower": 0.95,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 72,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.05
+      },
+      "harmed": 45,
+      "passed": true
+    }
+  },
+  "pairs": {
+    "F_T+F_P": {
+      "n": 72,
+      "joint": {
+        "k": 72,
+        "n": 72,
+        "rate": 1.0,
+        "lower": 0.95,
+        "upper": 1.0
+      },
+      "exact": {
+        "k": 72,
+        "n": 72,
+        "rate": 1.0,
+        "lower": 0.95,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 72,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.05
+      },
+      "silent": {
+        "k": 0,
+        "n": 72,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.05
+      },
+      "harmed": 44,
+      "unavailable": 0,
+      "A2_passed": true,
+      "kind": "runtime pair",
+      "A1_passed": true,
+      "compare": {
+        "sigma_hash_plus": 72,
+        "otel_default": 0,
+        "otel_content": 0,
+        "openinference": 0,
+        "openinference_guard": 0
+      }
+    }
+  },
+  "ablation": [
+    {
+      "element": "p_witness",
+      "detected": 72,
+      "of": 216,
+      "with_element": 216,
+      "drop": 144
+    },
+    {
+      "element": "t_attest",
+      "detected": 72,
+      "of": 216,
+      "with_element": 216,
+      "drop": 144
+    },
+    {
+      "element": "t_calls_h",
+      "detected": 72,
+      "of": 216,
+      "with_element": 216,
+      "drop": 144
+    },
+    {
+      "element": "c_hash",
+      "detected": 216,
+      "of": 216,
+      "with_element": 216,
+      "drop": 0
+    },
+    {
+      "element": "m",
+      "detected": 216,
+      "of": 216,
+      "with_element": 216,
+      "drop": 0
+    },
+    {
+      "element": "t_desc_hash",
+      "detected": 216,
+      "of": 216,
+      "with_element": 216,
+      "drop": 0
+    },
+    {
+      "element": "t_id",
+      "detected": 216,
+      "of": 216,
+      "with_element": 216,
+      "drop": 0
+    },
+    {
+      "element": "theta",
+      "detected": 216,
+      "of": 216,
+      "with_element": 216,
+      "drop": 0
+    },
+    {
+      "element": "x_hash",
+      "detected": 216,
+      "of": 216,
+      "with_element": 216,
+      "drop": 0
+    },
+    {
+      "element": "y_class",
+      "detected": 216,
+      "of": 216,
+      "with_element": 216,
+      "drop": 0
+    },
+    {
+      "element": "y_hash",
+      "detected": 216,
+      "of": 216,
+      "with_element": 216,
+      "drop": 0
+    },
+    {
+      "element": "z_hashes",
+      "detected": 216,
+      "of": 216,
+      "with_element": 216,
+      "drop": 0
+    },
+    {
+      "element": "z_ranks",
+      "detected": 216,
+      "of": 216,
+      "with_element": 216,
+      "drop": 0
+    }
+  ],
+  "extra": {},
+  "part_b": {},
+  "bytes": {
+    "all": {
+      "n": 288,
+      "median": 874,
+      "p95": 889,
+      "max": 897
+    },
+    "tool_runs": {
+      "n": 288,
+      "median": 874,
+      "p95": 889,
+      "max": 897
+    },
+    "no_tool_runs": null
+  }
+}

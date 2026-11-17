@@ -1,0 +1,18 @@
+{
+  "backend": "llama3.1:8b",
+  "corpus": "hotpotqa",
+  "scorer": "f1_guarded",
+  "answer_format": "short",
+  "temperature": 0.0,
+  "seed": 20261116,
+  "pairs": "F_R+F_P",
+  "n": 72,
+  "n_extra": 36,
+  "restricted_frac": 0.35,
+  "restricted_cap": 200,
+  "examples": 1398,
+  "cap_g12": 18,
+  "cap_g3": 4,
+  "budget": 24,
+  "encoder": "BAAI/bge-base-en-v1.5"
+}

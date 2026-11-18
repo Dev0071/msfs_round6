@@ -1,0 +1,749 @@
+{
+  "alpha": 0.025,
+  "bars": {
+    "clean_fpr_upper": 0.05,
+    "single_lower": 0.9,
+    "A1_lower": 0.9,
+    "A2_upper": 0.1,
+    "A3_lower": 0.9,
+    "B1_lower": 0.7,
+    "B2_upper": 0.1,
+    "B3_lower": 0.9
+  },
+  "candidate": "sigma_r8",
+  "clean": {
+    "k": 0,
+    "n": 10,
+    "rate": 0.0,
+    "lower": 0.0,
+    "upper": 0.308,
+    "passed": false
+  },
+  "singles": {
+    "F_R": {
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "lower": 0.398,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.602
+      },
+      "harmed": 1,
+      "passed": false
+    },
+    "F_X": {
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "lower": 0.398,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.602
+      },
+      "harmed": 0,
+      "passed": false
+    },
+    "F_T": {
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "lower": 0.398,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.602
+      },
+      "harmed": 0,
+      "passed": false
+    },
+    "F_P": {
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "lower": 0.398,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.602
+      },
+      "harmed": 2,
+      "passed": false
+    },
+    "F_D": {
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "lower": 0.398,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.602
+      },
+      "harmed": 1,
+      "passed": false
+    }
+  },
+  "pairs": {
+    "F_R+F_X": {
+      "n": 1,
+      "joint": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "exact": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "silent": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "harmed": 0,
+      "unavailable": 0,
+      "A2_passed": false,
+      "kind": "runtime pair",
+      "A1_passed": false,
+      "compare": {
+        "sigma_hash_plus": 1,
+        "otel_default": 0,
+        "otel_content": 0,
+        "openinference": 1,
+        "openinference_guard": 1,
+        "span_otel_default": 0,
+        "span_otel_content": 0,
+        "span_openinference": 1,
+        "span_openinference_guard": 1
+      }
+    },
+    "F_R+F_T": {
+      "n": 1,
+      "joint": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "exact": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "silent": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "harmed": 0,
+      "unavailable": 0,
+      "A2_passed": false,
+      "kind": "runtime pair",
+      "A1_passed": false,
+      "compare": {
+        "sigma_hash_plus": 1,
+        "otel_default": 0,
+        "otel_content": 0,
+        "openinference": 0,
+        "openinference_guard": 0,
+        "span_otel_default": 0,
+        "span_otel_content": 0,
+        "span_openinference": 0,
+        "span_openinference_guard": 0
+      }
+    },
+    "F_R+F_P": {
+      "n": 1,
+      "joint": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "exact": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "silent": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "harmed": 1,
+      "unavailable": 0,
+      "A2_passed": false,
+      "kind": "runtime pair",
+      "A1_passed": false,
+      "compare": {
+        "sigma_hash_plus": 1,
+        "otel_default": 0,
+        "otel_content": 0,
+        "openinference": 0,
+        "openinference_guard": 1,
+        "span_otel_default": 0,
+        "span_otel_content": 0,
+        "span_openinference": 0,
+        "span_openinference_guard": 1
+      }
+    },
+    "F_R+F_D": {
+      "n": 1,
+      "joint": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "exact": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "silent": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "harmed": 1,
+      "unavailable": 0,
+      "A2_passed": false,
+      "kind": "F_D pair",
+      "false_exoneration": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "A3_confirmed": false,
+      "truth": {
+        "library_involved": 1,
+        "partner_needed": 0,
+        "library_changed_decision": 0
+      },
+      "compare": {
+        "sigma_hash_plus": 0,
+        "otel_default": 0,
+        "otel_content": 0,
+        "openinference": 0,
+        "openinference_guard": 0,
+        "span_otel_default": 0,
+        "span_otel_content": 0,
+        "span_openinference": 0,
+        "span_openinference_guard": 0
+      }
+    },
+    "F_X+F_T": {
+      "n": 1,
+      "joint": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "exact": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "silent": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "harmed": 1,
+      "unavailable": 0,
+      "A2_passed": false,
+      "kind": "runtime pair",
+      "A1_passed": false,
+      "compare": {
+        "sigma_hash_plus": 1,
+        "otel_default": 0,
+        "otel_content": 0,
+        "openinference": 0,
+        "openinference_guard": 0,
+        "span_otel_default": 0,
+        "span_otel_content": 0,
+        "span_openinference": 0,
+        "span_openinference_guard": 0
+      }
+    },
+    "F_X+F_P": {
+      "n": 1,
+      "joint": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "exact": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "silent": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "harmed": 0,
+      "unavailable": 0,
+      "A2_passed": false,
+      "kind": "runtime pair",
+      "A1_passed": false,
+      "compare": {
+        "sigma_hash_plus": 1,
+        "otel_default": 0,
+        "otel_content": 0,
+        "openinference": 0,
+        "openinference_guard": 1,
+        "span_otel_default": 0,
+        "span_otel_content": 0,
+        "span_openinference": 0,
+        "span_openinference_guard": 0
+      }
+    },
+    "F_X+F_D": {
+      "n": 1,
+      "joint": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "exact": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "silent": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "harmed": 0,
+      "unavailable": 0,
+      "A2_passed": false,
+      "kind": "F_D pair",
+      "false_exoneration": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "A3_confirmed": false,
+      "truth": {
+        "library_involved": 0,
+        "partner_needed": 0,
+        "library_changed_decision": 1
+      },
+      "compare": {
+        "sigma_hash_plus": 1,
+        "otel_default": 0,
+        "otel_content": 0,
+        "openinference": 1,
+        "openinference_guard": 1,
+        "span_otel_default": 0,
+        "span_otel_content": 0,
+        "span_openinference": 1,
+        "span_openinference_guard": 1
+      }
+    },
+    "F_T+F_P": {
+      "n": 1,
+      "joint": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "exact": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "silent": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "harmed": 1,
+      "unavailable": 0,
+      "A2_passed": false,
+      "kind": "runtime pair",
+      "A1_passed": false,
+      "compare": {
+        "sigma_hash_plus": 1,
+        "otel_default": 0,
+        "otel_content": 0,
+        "openinference": 0,
+        "openinference_guard": 0,
+        "span_otel_default": 0,
+        "span_otel_content": 0,
+        "span_openinference": 0,
+        "span_openinference_guard": 0
+      }
+    },
+    "F_T+F_D": {
+      "n": 1,
+      "joint": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "exact": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "silent": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "harmed": 0,
+      "unavailable": 0,
+      "A2_passed": false,
+      "kind": "F_D pair",
+      "false_exoneration": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "A3_confirmed": false,
+      "truth": {
+        "library_involved": 0,
+        "partner_needed": 0,
+        "library_changed_decision": 0
+      },
+      "compare": {
+        "sigma_hash_plus": 1,
+        "otel_default": 0,
+        "otel_content": 0,
+        "openinference": 0,
+        "openinference_guard": 0,
+        "span_otel_default": 0,
+        "span_otel_content": 0,
+        "span_openinference": 0,
+        "span_openinference_guard": 0
+      }
+    },
+    "F_P+F_D": {
+      "n": 1,
+      "joint": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "exact": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "cross_talk": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "silent": {
+        "k": 0,
+        "n": 1,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.975
+      },
+      "harmed": 0,
+      "unavailable": 0,
+      "A2_passed": false,
+      "kind": "F_D pair",
+      "false_exoneration": {
+        "k": 1,
+        "n": 1,
+        "rate": 1.0,
+        "lower": 0.025,
+        "upper": 1.0
+      },
+      "A3_confirmed": false,
+      "truth": {
+        "library_involved": 0,
+        "partner_needed": 0,
+        "library_changed_decision": 0
+      },
+      "compare": {
+        "sigma_hash_plus": 1,
+        "otel_default": 0,
+        "otel_content": 0,
+        "openinference": 0,
+        "openinference_guard": 1,
+        "span_otel_default": 0,
+        "span_otel_content": 0,
+        "span_openinference": 0,
+        "span_openinference_guard": 0
+      }
+    }
+  },
+  "ablation": [
+    {
+      "element": "t_calls_h",
+      "detected": 10,
+      "of": 26,
+      "with_element": 25,
+      "drop": 15
+    },
+    {
+      "element": "x_hash",
+      "detected": 11,
+      "of": 26,
+      "with_element": 25,
+      "drop": 14
+    },
+    {
+      "element": "z_hashes",
+      "detected": 11,
+      "of": 26,
+      "with_element": 25,
+      "drop": 14
+    },
+    {
+      "element": "c_hash",
+      "detected": 17,
+      "of": 26,
+      "with_element": 25,
+      "drop": 8
+    },
+    {
+      "element": "p_witness",
+      "detected": 17,
+      "of": 26,
+      "with_element": 25,
+      "drop": 8
+    },
+    {
+      "element": "t_attest",
+      "detected": 17,
+      "of": 26,
+      "with_element": 25,
+      "drop": 8
+    },
+    {
+      "element": "m",
+      "detected": 25,
+      "of": 26,
+      "with_element": 25,
+      "drop": 0
+    },
+    {
+      "element": "t_desc_hash",
+      "detected": 25,
+      "of": 26,
+      "with_element": 25,
+      "drop": 0
+    },
+    {
+      "element": "t_id",
+      "detected": 25,
+      "of": 26,
+      "with_element": 25,
+      "drop": 0
+    },
+    {
+      "element": "theta",
+      "detected": 25,
+      "of": 26,
+      "with_element": 25,
+      "drop": 0
+    },
+    {
+      "element": "y_class",
+      "detected": 25,
+      "of": 26,
+      "with_element": 25,
+      "drop": 0
+    },
+    {
+      "element": "y_hash",
+      "detected": 25,
+      "of": 26,
+      "with_element": 25,
+      "drop": 0
+    },
+    {
+      "element": "z_ranks",
+      "detected": 25,
+      "of": 26,
+      "with_element": 25,
+      "drop": 0
+    }
+  ],
+  "extra": {},
+  "part_b": {},
+  "bytes": {
+    "all": {
+      "n": 40,
+      "median": 875,
+      "p95": 881,
+      "max": 881
+    },
+    "tool_runs": {
+      "n": 32,
+      "median": 878,
+      "p95": 881,
+      "max": 881
+    },
+    "no_tool_runs": {
+      "n": 8,
+      "median": 632,
+      "p95": 634,
+      "max": 634
+    }
+  }
+}

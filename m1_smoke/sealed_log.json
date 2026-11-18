@@ -1,0 +1,605 @@
+{
+  "head": "9b4f6dfceb3551792ee7d0d6ba572bd40e7983dc34e53312f7c5ea1809f8d7df",
+  "records": [
+    {
+      "injection_id": "inj-000000",
+      "execution_id": "r8-07000-pair",
+      "fault_class": "F_X+F_D",
+      "variant": "context_truncation+poison_ingested_d5",
+      "params": {
+        "query_id": "hp-000546",
+        "seed": 1711619312,
+        "block": 7000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981722.983741,
+      "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "record_hash": "bd54f484edd039861108f23cde29e46ff1c01458bd2c52c4d78cfcfa054eeb22"
+    },
+    {
+      "injection_id": "inj-000001",
+      "execution_id": "r8-07000-single_F_X",
+      "fault_class": "F_X",
+      "variant": "context_truncation",
+      "params": {
+        "query_id": "hp-000546",
+        "seed": 1711619312,
+        "block": 7000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981753.671108,
+      "prev_hash": "bd54f484edd039861108f23cde29e46ff1c01458bd2c52c4d78cfcfa054eeb22",
+      "record_hash": "b11b168fba82a35792885e9270763d4b31d9b0dd6260fa4d458b05fed6db7212"
+    },
+    {
+      "injection_id": "inj-000002",
+      "execution_id": "r8-07000-single_F_D",
+      "fault_class": "F_D",
+      "variant": "poison_ingested_d5",
+      "params": {
+        "query_id": "hp-000546",
+        "seed": 1711619312,
+        "block": 7000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981756.704884,
+      "prev_hash": "b11b168fba82a35792885e9270763d4b31d9b0dd6260fa4d458b05fed6db7212",
+      "record_hash": "a5ddaa988364a99e01e425b7da0cf581fd9595ae0a0f6385c12273b94920b1a0"
+    },
+    {
+      "injection_id": "inj-000003",
+      "execution_id": "r8-07000-clean",
+      "fault_class": "NONE",
+      "variant": "clean",
+      "params": {
+        "query_id": "hp-000546",
+        "seed": 1711619312,
+        "block": 7000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981760.5775301,
+      "prev_hash": "a5ddaa988364a99e01e425b7da0cf581fd9595ae0a0f6385c12273b94920b1a0",
+      "record_hash": "0a6195f43b446db9920c4e0965802aace6a0d8043f6d6c1980f8fb85729e7630"
+    },
+    {
+      "injection_id": "inj-000004",
+      "execution_id": "r8-03000-pair",
+      "fault_class": "F_R+F_P",
+      "variant": "suppression+fail_open",
+      "params": {
+        "query_id": "hp-001243",
+        "seed": 436982947,
+        "block": 3000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981768.081046,
+      "prev_hash": "0a6195f43b446db9920c4e0965802aace6a0d8043f6d6c1980f8fb85729e7630",
+      "record_hash": "c64137e5db5bde9f54e2f86f2a2ec7f7550203d20814c483d3076f141b75340c"
+    },
+    {
+      "injection_id": "inj-000005",
+      "execution_id": "r8-03000-single_F_R",
+      "fault_class": "F_R",
+      "variant": "suppression",
+      "params": {
+        "query_id": "hp-001243",
+        "seed": 436982947,
+        "block": 3000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981771.773513,
+      "prev_hash": "c64137e5db5bde9f54e2f86f2a2ec7f7550203d20814c483d3076f141b75340c",
+      "record_hash": "d4aa4126bcf28a9ecb250efbaca8bc5b894c7cb6a558eda47de74e292abc19ee"
+    },
+    {
+      "injection_id": "inj-000006",
+      "execution_id": "r8-03000-single_F_P",
+      "fault_class": "F_P",
+      "variant": "fail_open",
+      "params": {
+        "query_id": "hp-001243",
+        "seed": 436982947,
+        "block": 3000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981772.203128,
+      "prev_hash": "d4aa4126bcf28a9ecb250efbaca8bc5b894c7cb6a558eda47de74e292abc19ee",
+      "record_hash": "9ca4669703e5b833f769871621aba00f571efb8b04d946283a783a5f41229308"
+    },
+    {
+      "injection_id": "inj-000007",
+      "execution_id": "r8-03000-clean",
+      "fault_class": "NONE",
+      "variant": "clean",
+      "params": {
+        "query_id": "hp-001243",
+        "seed": 436982947,
+        "block": 3000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981776.5251288,
+      "prev_hash": "9ca4669703e5b833f769871621aba00f571efb8b04d946283a783a5f41229308",
+      "record_hash": "ff3d4c9d4f75fb5b9abd27bc586ee47e8fb81dec4cc75820bb3bce73aac65c9b"
+    },
+    {
+      "injection_id": "inj-000008",
+      "execution_id": "r8-05000-pair",
+      "fault_class": "F_X+F_T",
+      "variant": "context_truncation+server_name_squatting",
+      "params": {
+        "query_id": "hp-000434",
+        "seed": 2067344815,
+        "block": 5000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981777.124189,
+      "prev_hash": "ff3d4c9d4f75fb5b9abd27bc586ee47e8fb81dec4cc75820bb3bce73aac65c9b",
+      "record_hash": "d192cfd300dc8a24d1da1f2d6611b7b920ce5a11260d663c00c1b99f5544a5d1"
+    },
+    {
+      "injection_id": "inj-000009",
+      "execution_id": "r8-05000-single_F_X",
+      "fault_class": "F_X",
+      "variant": "context_truncation",
+      "params": {
+        "query_id": "hp-000434",
+        "seed": 2067344815,
+        "block": 5000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981780.1614358,
+      "prev_hash": "d192cfd300dc8a24d1da1f2d6611b7b920ce5a11260d663c00c1b99f5544a5d1",
+      "record_hash": "e075e817ef48ddcf79f82797bad4ca8846dd4bab0220e601ea313ff1f5d3d5eb"
+    },
+    {
+      "injection_id": "inj-000010",
+      "execution_id": "r8-05000-single_F_T",
+      "fault_class": "F_T",
+      "variant": "server_name_squatting",
+      "params": {
+        "query_id": "hp-000434",
+        "seed": 2067344815,
+        "block": 5000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981781.726408,
+      "prev_hash": "e075e817ef48ddcf79f82797bad4ca8846dd4bab0220e601ea313ff1f5d3d5eb",
+      "record_hash": "51f08d1023bff03c505737823a9b744374a915fc3c31cb571a248ab868e56b5e"
+    },
+    {
+      "injection_id": "inj-000011",
+      "execution_id": "r8-05000-clean",
+      "fault_class": "NONE",
+      "variant": "clean",
+      "params": {
+        "query_id": "hp-000434",
+        "seed": 2067344815,
+        "block": 5000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981787.468562,
+      "prev_hash": "51f08d1023bff03c505737823a9b744374a915fc3c31cb571a248ab868e56b5e",
+      "record_hash": "bb99746de6379c1c89118dc707439ddf51478edc2b2ac4344232c9fd2bf3c7c1"
+    },
+    {
+      "injection_id": "inj-000012",
+      "execution_id": "r8-06000-pair",
+      "fault_class": "F_X+F_P",
+      "variant": "context_truncation+fail_open",
+      "params": {
+        "query_id": "hp-000815",
+        "seed": 1023778162,
+        "block": 6000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981788.608674,
+      "prev_hash": "bb99746de6379c1c89118dc707439ddf51478edc2b2ac4344232c9fd2bf3c7c1",
+      "record_hash": "53f43daea1b00a8460e5c1cc33b2e2adde60020b9effc73cb223338dd76908c1"
+    },
+    {
+      "injection_id": "inj-000013",
+      "execution_id": "r8-06000-single_F_X",
+      "fault_class": "F_X",
+      "variant": "context_truncation",
+      "params": {
+        "query_id": "hp-000815",
+        "seed": 1023778162,
+        "block": 6000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981791.0275042,
+      "prev_hash": "53f43daea1b00a8460e5c1cc33b2e2adde60020b9effc73cb223338dd76908c1",
+      "record_hash": "5fca2b77d3c10ea65a5a5a3df4ef94ce96d91092c7ccfb3d4ebf9bd26af903c2"
+    },
+    {
+      "injection_id": "inj-000014",
+      "execution_id": "r8-06000-single_F_P",
+      "fault_class": "F_P",
+      "variant": "fail_open",
+      "params": {
+        "query_id": "hp-000815",
+        "seed": 1023778162,
+        "block": 6000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981791.615458,
+      "prev_hash": "5fca2b77d3c10ea65a5a5a3df4ef94ce96d91092c7ccfb3d4ebf9bd26af903c2",
+      "record_hash": "fe4f387b7f6f018d93b050af1b0edf5d02d107f20797b8c85beda7d5b66da5a1"
+    },
+    {
+      "injection_id": "inj-000015",
+      "execution_id": "r8-06000-clean",
+      "fault_class": "NONE",
+      "variant": "clean",
+      "params": {
+        "query_id": "hp-000815",
+        "seed": 1023778162,
+        "block": 6000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981796.093299,
+      "prev_hash": "fe4f387b7f6f018d93b050af1b0edf5d02d107f20797b8c85beda7d5b66da5a1",
+      "record_hash": "c214a0ccbf4a14410a0737795abde0a215f96b8fd05272110266d16965e02db4"
+    },
+    {
+      "injection_id": "inj-000016",
+      "execution_id": "r8-09000-pair",
+      "fault_class": "F_T+F_D",
+      "variant": "server_name_squatting+poison_ingested_d5",
+      "params": {
+        "query_id": "hp-001534",
+        "seed": 1010393852,
+        "block": 9000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981796.851607,
+      "prev_hash": "c214a0ccbf4a14410a0737795abde0a215f96b8fd05272110266d16965e02db4",
+      "record_hash": "e84451b10bff80a18cf0d6f9e2c7b21bc0e2a8381ab3b1b549d150561f378f04"
+    },
+    {
+      "injection_id": "inj-000017",
+      "execution_id": "r8-09000-single_F_T",
+      "fault_class": "F_T",
+      "variant": "server_name_squatting",
+      "params": {
+        "query_id": "hp-001534",
+        "seed": 1010393852,
+        "block": 9000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981827.241954,
+      "prev_hash": "e84451b10bff80a18cf0d6f9e2c7b21bc0e2a8381ab3b1b549d150561f378f04",
+      "record_hash": "3195b31b72f71d9e544e61712e2f3f3b9ed4fecc4d27062db61ce9021114ee92"
+    },
+    {
+      "injection_id": "inj-000018",
+      "execution_id": "r8-09000-single_F_D",
+      "fault_class": "F_D",
+      "variant": "poison_ingested_d5",
+      "params": {
+        "query_id": "hp-001534",
+        "seed": 1010393852,
+        "block": 9000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981834.247898,
+      "prev_hash": "3195b31b72f71d9e544e61712e2f3f3b9ed4fecc4d27062db61ce9021114ee92",
+      "record_hash": "3e18e6b5ab3e5ce63007685f2dee82734b80a564f922d9d1eedaa0d5c15690e5"
+    },
+    {
+      "injection_id": "inj-000019",
+      "execution_id": "r8-09000-clean",
+      "fault_class": "NONE",
+      "variant": "clean",
+      "params": {
+        "query_id": "hp-001534",
+        "seed": 1010393852,
+        "block": 9000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981836.147254,
+      "prev_hash": "3e18e6b5ab3e5ce63007685f2dee82734b80a564f922d9d1eedaa0d5c15690e5",
+      "record_hash": "5cba7b7e4991b18b80dd9f1b315d2d0dd6b6750d38614e7166436fc1410bb0f0"
+    },
+    {
+      "injection_id": "inj-000020",
+      "execution_id": "r8-10000-pair",
+      "fault_class": "F_P+F_D",
+      "variant": "fail_open+poison_ingested_d5",
+      "params": {
+        "query_id": "hp-001320",
+        "seed": 617301001,
+        "block": 10000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981841.087327,
+      "prev_hash": "5cba7b7e4991b18b80dd9f1b315d2d0dd6b6750d38614e7166436fc1410bb0f0",
+      "record_hash": "9571225e291296b677666effdf25a2389279eeadbb1f95fcc8ec9991854036ad"
+    },
+    {
+      "injection_id": "inj-000021",
+      "execution_id": "r8-10000-single_F_P",
+      "fault_class": "F_P",
+      "variant": "fail_open",
+      "params": {
+        "query_id": "hp-001320",
+        "seed": 617301001,
+        "block": 10000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981866.5636191,
+      "prev_hash": "9571225e291296b677666effdf25a2389279eeadbb1f95fcc8ec9991854036ad",
+      "record_hash": "f0e2195ff8b461643f212816a58be78f7850f4e81b5832641dd911c6afa840ad"
+    },
+    {
+      "injection_id": "inj-000022",
+      "execution_id": "r8-10000-single_F_D",
+      "fault_class": "F_D",
+      "variant": "poison_ingested_d5",
+      "params": {
+        "query_id": "hp-001320",
+        "seed": 617301001,
+        "block": 10000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981873.2042959,
+      "prev_hash": "f0e2195ff8b461643f212816a58be78f7850f4e81b5832641dd911c6afa840ad",
+      "record_hash": "c59642821e41f570976e2eb33d38c16efb45cf77f1d661c08eadfc2d739429fa"
+    },
+    {
+      "injection_id": "inj-000023",
+      "execution_id": "r8-10000-clean",
+      "fault_class": "NONE",
+      "variant": "clean",
+      "params": {
+        "query_id": "hp-001320",
+        "seed": 617301001,
+        "block": 10000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981874.034644,
+      "prev_hash": "c59642821e41f570976e2eb33d38c16efb45cf77f1d661c08eadfc2d739429fa",
+      "record_hash": "fbe0ce8c77ae1ab06093c9c7a355ea763c996474f19e404a260aa2eb87985f1a"
+    },
+    {
+      "injection_id": "inj-000024",
+      "execution_id": "r8-08000-pair",
+      "fault_class": "F_T+F_P",
+      "variant": "server_name_squatting+fail_open",
+      "params": {
+        "query_id": "hp-001118",
+        "seed": 1635599244,
+        "block": 8000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981877.787788,
+      "prev_hash": "fbe0ce8c77ae1ab06093c9c7a355ea763c996474f19e404a260aa2eb87985f1a",
+      "record_hash": "e9f183da790fd7de188eaf58ebe8409ff3c8db709860f139f6a95219676bfc72"
+    },
+    {
+      "injection_id": "inj-000025",
+      "execution_id": "r8-08000-single_F_T",
+      "fault_class": "F_T",
+      "variant": "server_name_squatting",
+      "params": {
+        "query_id": "hp-001118",
+        "seed": 1635599244,
+        "block": 8000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981881.5365062,
+      "prev_hash": "e9f183da790fd7de188eaf58ebe8409ff3c8db709860f139f6a95219676bfc72",
+      "record_hash": "76f3b09bed7d0797c2de2e836b0b81b375fdcffd628d030fbe36c9cf49481c76"
+    },
+    {
+      "injection_id": "inj-000026",
+      "execution_id": "r8-08000-single_F_P",
+      "fault_class": "F_P",
+      "variant": "fail_open",
+      "params": {
+        "query_id": "hp-001118",
+        "seed": 1635599244,
+        "block": 8000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981881.866623,
+      "prev_hash": "76f3b09bed7d0797c2de2e836b0b81b375fdcffd628d030fbe36c9cf49481c76",
+      "record_hash": "d82eb659281ddbba7fb0e2c3e03ae90801f0fcf8880a797e7d1ebfb67dc7e5ad"
+    },
+    {
+      "injection_id": "inj-000027",
+      "execution_id": "r8-08000-clean",
+      "fault_class": "NONE",
+      "variant": "clean",
+      "params": {
+        "query_id": "hp-001118",
+        "seed": 1635599244,
+        "block": 8000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981882.778261,
+      "prev_hash": "d82eb659281ddbba7fb0e2c3e03ae90801f0fcf8880a797e7d1ebfb67dc7e5ad",
+      "record_hash": "ba7ecc585ff22e06926a1a929b0f8ea11f148a631389b8f5a54c2e80cf87c676"
+    },
+    {
+      "injection_id": "inj-000028",
+      "execution_id": "r8-02000-pair",
+      "fault_class": "F_R+F_T",
+      "variant": "suppression+server_name_squatting",
+      "params": {
+        "query_id": "hp-000444",
+        "seed": 194953317,
+        "block": 2000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981883.271136,
+      "prev_hash": "ba7ecc585ff22e06926a1a929b0f8ea11f148a631389b8f5a54c2e80cf87c676",
+      "record_hash": "f58f2920e2c689fd98885567ffc9dc337cabd6b5537c7e794e6655a3acf65a87"
+    },
+    {
+      "injection_id": "inj-000029",
+      "execution_id": "r8-02000-single_F_R",
+      "fault_class": "F_R",
+      "variant": "suppression",
+      "params": {
+        "query_id": "hp-000444",
+        "seed": 194953317,
+        "block": 2000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981889.595005,
+      "prev_hash": "f58f2920e2c689fd98885567ffc9dc337cabd6b5537c7e794e6655a3acf65a87",
+      "record_hash": "97cd2755fec427020e03f2b6ec7b3c58af9e3729ed238280c54964afcee3cbaa"
+    },
+    {
+      "injection_id": "inj-000030",
+      "execution_id": "r8-02000-single_F_T",
+      "fault_class": "F_T",
+      "variant": "server_name_squatting",
+      "params": {
+        "query_id": "hp-000444",
+        "seed": 194953317,
+        "block": 2000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981890.981917,
+      "prev_hash": "97cd2755fec427020e03f2b6ec7b3c58af9e3729ed238280c54964afcee3cbaa",
+      "record_hash": "daa55f362c10644afb1539d76b72b3b5b70599f1cd20a86fae7fbfe9139864f8"
+    },
+    {
+      "injection_id": "inj-000031",
+      "execution_id": "r8-02000-clean",
+      "fault_class": "NONE",
+      "variant": "clean",
+      "params": {
+        "query_id": "hp-000444",
+        "seed": 194953317,
+        "block": 2000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981894.363529,
+      "prev_hash": "daa55f362c10644afb1539d76b72b3b5b70599f1cd20a86fae7fbfe9139864f8",
+      "record_hash": "da1945a751dd9aaf7b44e777ab94bc222f74f12c03764e6f4921311c079607fd"
+    },
+    {
+      "injection_id": "inj-000032",
+      "execution_id": "r8-01000-pair",
+      "fault_class": "F_R+F_X",
+      "variant": "suppression+context_truncation",
+      "params": {
+        "query_id": "hp-000744",
+        "seed": 1733936403,
+        "block": 1000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981896.0643919,
+      "prev_hash": "da1945a751dd9aaf7b44e777ab94bc222f74f12c03764e6f4921311c079607fd",
+      "record_hash": "516034a00d997de81f07d227c11091b98c20e19c0da4532465a5d3d7d1ade6fe"
+    },
+    {
+      "injection_id": "inj-000033",
+      "execution_id": "r8-01000-single_F_R",
+      "fault_class": "F_R",
+      "variant": "suppression",
+      "params": {
+        "query_id": "hp-000744",
+        "seed": 1733936403,
+        "block": 1000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981899.901045,
+      "prev_hash": "516034a00d997de81f07d227c11091b98c20e19c0da4532465a5d3d7d1ade6fe",
+      "record_hash": "21638167bbb830d20aed02b8362f715f2b390785e689a8b8b8affded9c01f5b4"
+    },
+    {
+      "injection_id": "inj-000034",
+      "execution_id": "r8-01000-single_F_X",
+      "fault_class": "F_X",
+      "variant": "context_truncation",
+      "params": {
+        "query_id": "hp-000744",
+        "seed": 1733936403,
+        "block": 1000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981905.764364,
+      "prev_hash": "21638167bbb830d20aed02b8362f715f2b390785e689a8b8b8affded9c01f5b4",
+      "record_hash": "b8555f0c1eceba7db97f40ead0df05a84381a3d3cb4e1d75c57bd8fb27c22669"
+    },
+    {
+      "injection_id": "inj-000035",
+      "execution_id": "r8-01000-clean",
+      "fault_class": "NONE",
+      "variant": "clean",
+      "params": {
+        "query_id": "hp-000744",
+        "seed": 1733936403,
+        "block": 1000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981909.870847,
+      "prev_hash": "b8555f0c1eceba7db97f40ead0df05a84381a3d3cb4e1d75c57bd8fb27c22669",
+      "record_hash": "41ca5cb7cc6cf2cc5a3c2ab6656669ced06efdd0d086ca1c3421d30f8398ddb1"
+    },
+    {
+      "injection_id": "inj-000036",
+      "execution_id": "r8-04000-pair",
+      "fault_class": "F_R+F_D",
+      "variant": "suppression+poison_ingested_d5",
+      "params": {
+        "query_id": "hp-000520",
+        "seed": 407046938,
+        "block": 4000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981917.300683,
+      "prev_hash": "41ca5cb7cc6cf2cc5a3c2ab6656669ced06efdd0d086ca1c3421d30f8398ddb1",
+      "record_hash": "c14507730046cd28e3a94712afa5c977eedd5179b61761be9e4ab3ddadef2e39"
+    },
+    {
+      "injection_id": "inj-000037",
+      "execution_id": "r8-04000-single_F_R",
+      "fault_class": "F_R",
+      "variant": "suppression",
+      "params": {
+        "query_id": "hp-000520",
+        "seed": 407046938,
+        "block": 4000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981943.741189,
+      "prev_hash": "c14507730046cd28e3a94712afa5c977eedd5179b61761be9e4ab3ddadef2e39",
+      "record_hash": "de84816bceb1c32465e3b6274f845de600431f34c465b09386c88a4f1e80a8d7"
+    },
+    {
+      "injection_id": "inj-000038",
+      "execution_id": "r8-04000-single_F_D",
+      "fault_class": "F_D",
+      "variant": "poison_ingested_d5",
+      "params": {
+        "query_id": "hp-000520",
+        "seed": 407046938,
+        "block": 4000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981949.724162,
+      "prev_hash": "de84816bceb1c32465e3b6274f845de600431f34c465b09386c88a4f1e80a8d7",
+      "record_hash": "1a8fc4bdd7e11c06615bdd18af58cb121dd72e3cf19facffdfc7df8f7a098e74"
+    },
+    {
+      "injection_id": "inj-000039",
+      "execution_id": "r8-04000-clean",
+      "fault_class": "NONE",
+      "variant": "clean",
+      "params": {
+        "query_id": "hp-000520",
+        "seed": 407046938,
+        "block": 4000,
+        "arm": "pair"
+      },
+      "timestamp": 1794981950.337961,
+      "prev_hash": "1a8fc4bdd7e11c06615bdd18af58cb121dd72e3cf19facffdfc7df8f7a098e74",
+      "record_hash": "9b4f6dfceb3551792ee7d0d6ba572bd40e7983dc34e53312f7c5ea1809f8d7df"
+    }
+  ]
+}

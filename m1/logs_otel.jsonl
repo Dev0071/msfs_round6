@@ -1,0 +1,2 @@
+{"span_id": "a2d60ae7da2399c7", "event_name": "gen_ai.user.message", "attributes": {"gen_ai.system": "openai"}, "body": null}
+{"span_id": "a2d60ae7da2399c7", "event_name": "gen_ai.choice", "attributes": {"gen_ai.system": "openai"}, "body": {"index": 0, "finish_reason": "stop", "message": {"role": "assistant"}}}

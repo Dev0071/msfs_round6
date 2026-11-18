@@ -1,0 +1,11 @@
+# M1 instrumentation stack, pinned. Versions checked together on 17 Nov 2026.
+# run_m1.py records the installed versions in m1_versions.json with every run.
+opentelemetry-sdk==1.45.2
+opentelemetry-instrumentation-openai-v2==2.3b0   # 2.4b0 fails to import with util-genai 1.3b0
+opentelemetry-util-genai==1.3b0
+wrapt<2                                          # wrapt 2.x breaks openai-v2 2.3b0
+openinference-instrumentation-llama-index==4.7.7
+openinference-semantic-conventions==0.1.46
+llama-index-core==0.14.26
+llama-index-llms-openai-like==0.9.0
+scipy                                            # m1_score.py

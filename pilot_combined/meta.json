@@ -1,0 +1,9 @@
+{
+  "backend": "llama3.1:8b",
+  "corpus": "hotpotqa",
+  "n_clean": 300,
+  "n_poison": 60,
+  "seed": 7,
+  "out": "pilot_combined",
+  "analyze": null
+}
